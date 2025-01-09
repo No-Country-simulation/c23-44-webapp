@@ -3,6 +3,7 @@
 
 ### dotenv ###
 .env
+backend/.env
 
 ### Linux ###
 *~
@@ -513,3 +514,55 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/dotenv,linux,windows,vs,webstorm
+
+# compiled output
+backend/documentation
+backend/uploads
+backend/photos
+backend/data
+backend/backup
+
+# Dependency directories
+backend/node_modules/
+
+# Output files
+backend/dist
+
+# dotenv environment variables file
+backend/.env
+
+# others
+backend/graphql.schema.ts
+backend/package-lock.json
+backend/yarn.lock
+
+# Logs
+backend/logs
+backend/*.log
+backend/npm-debug.log*
+backend/yarn-debug.log*
+backend/yarn-error.log*
+backend/lerna-debug.log*
+
+# OS
+backend/.DS_Store
+
+# Tests
+backend/coverage
+backend/.nyc_output
+
+# IDEs and editors
+backend/.idea
+backend/.project
+backend/.classpath
+backend/.c9/
+backend/*.launch
+backend/.settings/
+backend/*.sublime-workspace
+
+# IDE - VSCode
+backend/.vscode/*
+!backend/.vscode/settings.json
+!backend/.vscode/tasks.json
+!backend/.vscode/launch.json
+!backend/.vscode/extensions.json
