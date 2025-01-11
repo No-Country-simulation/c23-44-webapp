@@ -7,6 +7,6 @@ export class AppController {
 
   @Get()
   getHello(): string {
-    return 'registros asdasd';
+    return 'probando que vamos a subir';
   }
 }
