@@ -7,6 +7,6 @@ export class AppController {
 
   @Get()
   getTeachers(): string {
-    return this.appService.teachers();
+    return this.appService.teachers(2);
   }
 }
