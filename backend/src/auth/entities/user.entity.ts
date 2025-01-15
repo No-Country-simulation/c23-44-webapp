@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 // export enum UserRole {
 //   ADMIN = 'admin',
@@ -34,6 +34,11 @@ export class User {
     default: ['user'],
   })
   roles: string[];
+
+  @BeforeInsert()
+  checkFieldsBeforeIntert() {
+    this.email = this.email.toLowerCase().trim();
+  }
 
   // @Column({
   //   type: 'enum',

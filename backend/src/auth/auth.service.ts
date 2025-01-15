@@ -11,12 +11,16 @@ import * as bcrypt from 'bcrypt';
 
 import { User } from './entities/user.entity';
 import { LoginUserDto, CreateUserDto } from './dto';
+import { JwtPayload } from './interfaces/payload.interface';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+
+    private readonly jwtService: JwtService,
   ) {}
 
   async create(createAuthDto: CreateUserDto) {
@@ -29,7 +33,11 @@ export class AuthService {
       });
 
       await this.userRepository.save(user);
-      return user;
+
+      return {
+        ...user,
+        token: this.getJwtToken({ id: user.id }),
+      };
     } catch (error) {
       this.handleDBErrors(error);
     }
@@ -40,7 +48,7 @@ export class AuthService {
 
     const user = await this.userRepository.findOne({
       where: { email },
-      select: { email: true, password: true },
+      select: { email: true, password: true, id: true },
     });
 
     if (!user) {
@@ -51,12 +59,18 @@ export class AuthService {
       throw new UnauthorizedException('Credentials are not valid');
     }
 
-    return user;
+    return {
+      ...user,
+      token: this.getJwtToken({ id: user.id }),
+    };
+  }
+
+  private getJwtToken(payload: JwtPayload) {
+    const token = this.jwtService.sign(payload);
+    return token;
   }
 
   private handleDBErrors(error: any): never {
-    console.log(error);
-
     if (error.code === '23505') {
       throw new BadRequestException(error.detail);
     }
