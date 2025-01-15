@@ -1,5 +1,11 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
+// export enum UserRole {
+//   ADMIN = 'admin',
+//   PROFESSOR = 'professor',
+//   PARENT = 'parent'
+// }
+
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn('uuid')
@@ -10,7 +16,9 @@ export class User {
   })
   email: string;
 
-  @Column('text')
+  @Column('text', {
+    select: false,
+  })
   password: string;
 
   @Column('text')
@@ -26,4 +34,19 @@ export class User {
     default: ['user'],
   })
   roles: string[];
+
+  // @Column({
+  //   type: 'enum',
+  //   enum: UserRole,
+  //   default: UserRole.PARENT,
+  // })
+  // role: UserRole;
+
+  // @OneToOne(() => Professor, { nullable: true })
+  // @JoinColumn()
+  // professorProfile: Professor;
+
+  // @OneToOne(() => Parent, { nullable: true })
+  // @JoinColumn()
+  // parentProfile: Parent;
 }
