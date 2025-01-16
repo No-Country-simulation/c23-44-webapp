@@ -521,7 +521,8 @@ backend/uploads
 backend/photos
 backend/data
 backend/backup
-
+backend/package-lock.json
+package-lock.json
 # Dependency directories
 backend/node_modules/
 
