@@ -1,10 +1,13 @@
-import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-
-// export enum UserRole {
-//   ADMIN = 'admin',
-//   PROFESSOR = 'professor',
-//   PARENT = 'parent'
-// }
+import {
+  BeforeInsert,
+  Column,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { ValidRoles } from '../interfaces';
+import { TeacherEntity } from 'src/teacher/entities/teacher.entity';
 
 @Entity('users')
 export class User {
@@ -30,28 +33,23 @@ export class User {
   isActive: boolean;
 
   @Column('text', {
-    array: true,
-    default: ['user'],
+    default: ValidRoles.TEACHER,
   })
-  roles: string[];
+  roles: ValidRoles;
+
+  // @OneToOne(() => TeacherEntity, (teacher) => teacher.user)
+  // teacher: TeacherEntity;
+
+  // @OneToOne(() => Parent, { nullable: true })
+  // @JoinColumn()
+  // parentProfile: Parent;
+
+  // @OneToOne(() => Student, { nullable: true })
+  // @JoinColumn()
+  // studentProfile: Student;
 
   @BeforeInsert()
   checkFieldsBeforeIntert() {
     this.email = this.email.toLowerCase().trim();
   }
-
-  // @Column({
-  //   type: 'enum',
-  //   enum: UserRole,
-  //   default: UserRole.PARENT,
-  // })
-  // role: UserRole;
-
-  // @OneToOne(() => Professor, { nullable: true })
-  // @JoinColumn()
-  // professorProfile: Professor;
-
-  // @OneToOne(() => Parent, { nullable: true })
-  // @JoinColumn()
-  // parentProfile: Parent;
 }
