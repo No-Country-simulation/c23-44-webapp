@@ -1,4 +1,13 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BeforeInsert,
+  Column,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { ValidRoles } from '../interfaces';
+import { TeacherEntity } from 'src/teacher/entities/teacher.entity';
 
 @Entity('users')
 export class User {
@@ -10,7 +19,9 @@ export class User {
   })
   email: string;
 
-  @Column('text')
+  @Column('text', {
+    select: false,
+  })
   password: string;
 
   @Column('text')
@@ -22,8 +33,23 @@ export class User {
   isActive: boolean;
 
   @Column('text', {
-    array: true,
-    default: ['user'],
+    default: ValidRoles.TEACHER,
   })
-  roles: string[];
+  roles: ValidRoles;
+
+  // @OneToOne(() => TeacherEntity, (teacher) => teacher.user)
+  // teacher: TeacherEntity;
+
+  // @OneToOne(() => Parent, { nullable: true })
+  // @JoinColumn()
+  // parentProfile: Parent;
+
+  // @OneToOne(() => Student, { nullable: true })
+  // @JoinColumn()
+  // studentProfile: Student;
+
+  @BeforeInsert()
+  checkFieldsBeforeIntert() {
+    this.email = this.email.toLowerCase().trim();
+  }
 }
