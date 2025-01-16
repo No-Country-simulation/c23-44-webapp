@@ -5,6 +5,7 @@ import { TeacherModule } from './teacher/teacher.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
+import { SchoolModule } from './school/school.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { AuthModule } from './auth/auth.module';
       }),
       inject: [ConfigService],
     }),
+    SchoolModule,
   ],
   controllers: [AppController],
   providers: [AppService],
