@@ -1,0 +1,199 @@
+@use 'variables' as *;
+
+.header {
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: $primary-color;
+  color: $white;
+  position: relative;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+
+  @media (min-width: 768px) {
+    padding: 0.75rem 2rem;
+  }
+
+  &__logo-container {
+    a {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+
+      h1 {
+        font-size: 1.125rem;
+
+        @media (min-width: 768px) {
+          font-size: 1.25rem;
+        }
+      }
+    }
+  }
+
+  &__logo {
+    max-width: 2.5rem;
+
+    @media (min-width: 768px) {
+      max-width: 3rem;
+    }
+  }
+
+  &__mobile-menu-btn {
+    @media (min-width: 768px) {
+      display: none;
+    }
+  }
+
+  &__nav-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 200px;
+    height: 100vh;
+    background-color: $primary-color;
+    padding: 6rem 1rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 55;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+
+    &.flex {
+      transform: translateX(0);
+    }
+
+    @media (min-width: 768px) {
+      position: static;
+      padding: 0;
+      flex-direction: row;
+      align-items: center;
+      gap: 2rem;
+      height: auto;
+      width: auto;
+      transform: none;
+      transition: none;
+      box-shadow: none;
+    }
+  }
+
+  &__nav-bar {
+    ul {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      font-size: 1rem;
+
+      li a {
+        font-size: 0.875rem;
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: #fbbf24;
+        }
+      }
+
+      @media (min-width: 768px) {
+        flex-direction: row;
+        gap: 2rem;
+        font-size: 0.875rem;
+      }
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+
+    button {
+      font-size: 0.875rem;
+      padding: 0.5rem 1rem;
+    }
+
+    @media (min-width: 768px) {
+      flex-direction: row;
+      gap: 1rem;
+    }
+  }
+}
+
+.btn-login {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background-color: #fb7185;
+  box-shadow: #f97388;
+}
+
+.hamburger-menu {
+  width: 30px;
+  height: 24px;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 60;
+
+  @media (min-width: 768px) {
+    display: none;
+  }
+
+  &__line {
+    width: 100%;
+    height: 3px;
+    background-color: white;
+    border-radius: 3px;
+    transition: all 0.3s ease-in-out;
+  }
+
+  &.active {
+    .hamburger-menu__line {
+      &:nth-child(1) {
+        transform: translateY(10px) rotate(45deg);
+      }
+
+      &:nth-child(2) {
+        opacity: 0;
+      }
+
+      &:nth-child(3) {
+        transform: translateY(-10px) rotate(-45deg);
+      }
+    }
+  }
+}
+
+.header-wrapper {
+  width: 100%;
+  background-color: $primary-color;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 50;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out;
+
+  &.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  @media (min-width: 768px) {
+    display: none;
+  }
+}
