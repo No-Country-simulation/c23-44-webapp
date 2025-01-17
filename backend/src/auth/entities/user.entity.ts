@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { ValidRoles } from '../interfaces';
 import { TeacherEntity } from 'src/teacher/entities/teacher.entity';
+import { Parent } from '../../parent/entities/parent.entity';
 
 @Entity('users')
 export class User {
@@ -33,16 +34,15 @@ export class User {
   isActive: boolean;
 
   @Column('text', {
-    default: ValidRoles.TEACHER,
+    default: ValidRoles.PARENT,
   })
   roles: ValidRoles;
 
   // @OneToOne(() => TeacherEntity, (teacher) => teacher.user)
   // teacher: TeacherEntity;
 
-  // @OneToOne(() => Parent, { nullable: true })
-  // @JoinColumn()
-  // parentProfile: Parent;
+  @OneToOne(() => Parent, (parent) => parent.user)
+  parent: Parent;
 
   // @OneToOne(() => Student, { nullable: true })
   // @JoinColumn()

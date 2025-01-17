@@ -8,12 +8,15 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { User } from './entities/user.entity';
 import { JwtStrategy } from './strategies/jwt.strategy';
+import { ParentModule } from '../parent/parent.module';
 
 @Module({
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy],
   imports: [
     ConfigModule,
+
+    ParentModule,
 
     TypeOrmModule.forFeature([User]),
 

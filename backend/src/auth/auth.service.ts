@@ -13,12 +13,16 @@ import { User } from './entities/user.entity';
 import { LoginUserDto, CreateUserDto } from './dto';
 import { JwtPayload } from './interfaces/payload.interface';
 import { JwtService } from '@nestjs/jwt';
+import { Parent } from 'src/parent/entities/parent.entity';
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+
+    @InjectRepository(Parent)
+    private readonly parentRepository: Repository<Parent>,
 
     private readonly jwtService: JwtService,
   ) {}
@@ -33,6 +37,10 @@ export class AuthService {
       });
 
       await this.userRepository.save(user);
+
+      //Crear padre/madre en base de datos para la relación one-to-one
+      const parent = this.parentRepository.create({ user });
+      await this.parentRepository.save(parent);
 
       return {
         ...user,

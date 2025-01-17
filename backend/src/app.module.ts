@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { SchoolModule } from './school/school.module';
+import { ParentModule } from './parent/parent.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { SchoolModule } from './school/school.module';
       inject: [ConfigService],
     }),
     SchoolModule,
+    ParentModule,
   ],
   controllers: [AppController],
   providers: [AppService],
