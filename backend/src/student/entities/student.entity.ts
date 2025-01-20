@@ -4,7 +4,9 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   CreateDateColumn,
+  ManyToOne,
 } from 'typeorm';
+import { TeacherEntity } from 'src/teacher/entities/teacher.entity';
 
 @Entity('student')
 export class Student {
@@ -32,4 +34,9 @@ export class Student {
 
   @DeleteDateColumn()
   deletedAt: Date;
+
+  @ManyToOne(() => TeacherEntity, (teacher) => teacher.student, {
+    onDelete: 'CASCADE',
+  })
+  teacher: TeacherEntity;
 }
