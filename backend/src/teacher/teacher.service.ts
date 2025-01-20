@@ -1,13 +1,18 @@
+
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TeacherEntity } from './entities/teacher.entity';
 import { Repository } from 'typeorm';
+import { AdminSchoolEntity } from '../school/entities/school.entity';
+import { CreateTeacherDto } from './dto/create-teacher.dto';
 
 @Injectable()
 export class TeacherService {
   constructor(
     @InjectRepository(TeacherEntity)
     private teacherRepository: Repository<TeacherEntity>,
+    @InjectRepository(AdminSchoolEntity)
+    private adminSchoolRepository: Repository<AdminSchoolEntity>,
   ) {}
   async findAll(): Promise<TeacherEntity[]> {
     return this.teacherRepository.find();
@@ -17,8 +22,14 @@ export class TeacherService {
     return this.teacherRepository.findOne({ where: { id } });
   }
 
-  async create(teacher: Partial<TeacherEntity>): Promise<TeacherEntity> {
-    const newTeacher = this.teacherRepository.create(teacher);
+  async create(teacher: CreateTeacherDto): Promise<TeacherEntity> {
+    const findAdminSchool = await this.adminSchoolRepository.findOneBy({
+      id: teacher.adminSchoolId,
+    });
+    const newTeacher = this.teacherRepository.create({
+      ...teacher,
+      adminSchool: findAdminSchool,
+    });
     return this.teacherRepository.save(newTeacher);
   }
 

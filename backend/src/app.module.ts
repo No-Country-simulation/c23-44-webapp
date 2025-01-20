@@ -1,3 +1,4 @@
+
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -5,6 +6,7 @@ import { TeacherModule } from './teacher/teacher.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
+import { SchoolModule } from './school/school.module';
 import { StudentModule } from './student/student.module';
 
 @Module({
@@ -36,12 +38,14 @@ import { StudentModule } from './student/student.module';
         type: 'postgres',
         url: configService.get('DATABASE_URL'),
         autoLoadEntities: true,
-        synchronize: true,
+        synchronize: true, // set to false in production
       }),
       inject: [ConfigService],
     }),
+    SchoolModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}
+
