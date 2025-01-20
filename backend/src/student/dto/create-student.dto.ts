@@ -1,6 +1,5 @@
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
-
-export class CreateTeacherDto {
+export class CreateStudentDto {
   @IsString()
   @IsNotEmpty()
   name: string;
@@ -11,5 +10,8 @@ export class CreateTeacherDto {
 
   @IsString()
   @IsNotEmpty()
-  password: string;
+  phone: string;
+
+  @IsString()
+  idProf: string;
 }
