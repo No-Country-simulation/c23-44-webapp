@@ -4,6 +4,7 @@ import { TeacherEntity } from './entities/teacher.entity';
 import { Repository } from 'typeorm';
 import { AdminSchoolEntity } from '../school/entities/school.entity';
 import { CreateTeacherDto } from './dto/create-teacher.dto';
+import { ValidRoles } from '../common/interface/user-roles';
 
 @Injectable()
 export class TeacherService {
@@ -27,6 +28,7 @@ export class TeacherService {
     });
     const newTeacher = this.teacherRepository.create({
       ...teacher,
+      role: ValidRoles.TEACHER,
       adminSchool: findAdminSchool,
     });
     return this.teacherRepository.save(newTeacher);

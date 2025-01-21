@@ -1,29 +1,17 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  ChildEntity,
+  Column,
+  Entity,
+  JoinColumn,
+  JoinTable,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { TeacherEntity } from '../../teacher/entities/teacher.entity';
+import { UserBaseEntity } from '../../common/entity/user-base.entity';
 
-@Entity()
-export class AdminSchoolEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
-  @Column()
-  name: string;
-
-  @Column()
-  email: string;
-
-  @Column()
-  description: string;
-
-  @Column()
-  password: string;
-
-  @Column()
-  country: string;
-
-  @Column()
-  isActive: boolean;
-
+@ChildEntity()
+export class AdminSchoolEntity extends UserBaseEntity {
   @OneToMany(() => TeacherEntity, (teacher) => teacher.adminSchool)
   teachers: TeacherEntity[];
 }

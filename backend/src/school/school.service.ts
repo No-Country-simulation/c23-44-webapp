@@ -4,8 +4,8 @@ import { Repository } from 'typeorm';
 import { AdminSchoolEntity } from './entities/school.entity';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { JwtPayload } from '../auth/interfaces';
-import { LoginSchoolDto } from './dto/login-school.dto';
+import { JwtPayload, ValidRoles } from '../auth/interfaces';
+import { LoginUserDto } from '../auth/dto';
 
 @Injectable()
 export class SchoolService {
@@ -33,6 +33,7 @@ export class SchoolService {
     const savedTeacher = await this.adminSchoolRepository.save(newTeacher);
     return {
       ...savedTeacher,
+      role: ValidRoles.ADMIN_SCHOOL,
       token: this.getJwtToken({ id: savedTeacher.id }),
     };
   }
@@ -52,7 +53,7 @@ export class SchoolService {
     await this.adminSchoolRepository.delete(id);
   }
 
-  async login(loginSchool: LoginSchoolDto): Promise<any> {
+  async login(loginSchool: LoginUserDto): Promise<any> {
     const { email, password } = loginSchool;
 
     const school = await this.adminSchoolRepository.findOne({

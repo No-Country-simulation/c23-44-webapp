@@ -37,7 +37,8 @@ import { StudentModule } from './student/student.module';
         type: 'postgres',
         url: configService.get('DATABASE_URL'),
         autoLoadEntities: true,
-        synchronize: false, // set to false in production
+        synchronize: true, // set to false in production
+        entities: [__dirname + '/**/*.entity{.ts,.js}'],
       }),
       inject: [ConfigService],
     }),

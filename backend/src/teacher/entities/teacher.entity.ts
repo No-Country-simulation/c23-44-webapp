@@ -6,35 +6,21 @@ import {
   OneToMany,
   CreateDateColumn,
   UpdateDateColumn,
+  JoinColumn,
+  ChildEntity,
 } from 'typeorm';
 import { AdminSchoolEntity } from '../../school/entities/school.entity';
 import { Student } from 'src/student/entities/student.entity';
+import { UserBaseEntity } from '../../common/entity/user-base.entity';
 
-@Entity('teacher')
-export class TeacherEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-
-  @Column()
-  name: string;
-
-  @Column({ unique: true })
-  email: string;
-
-  @Column()
-  password: string;
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
-
+@ChildEntity()
+export class TeacherEntity extends UserBaseEntity {
   @OneToMany(() => Student, (student) => student.teacher)
   students: Student[];
 
   @ManyToOne(() => AdminSchoolEntity, (adminSchool) => adminSchool.teachers, {
     onDelete: 'CASCADE',
   })
+  @JoinColumn({ name: 'adminSchoolId' })
   adminSchool: AdminSchoolEntity;
 }

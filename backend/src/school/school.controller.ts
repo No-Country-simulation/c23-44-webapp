@@ -11,7 +11,6 @@ import { SchoolService } from './school.service';
 import { CreateSchoolDto } from './dto/create-school.dto';
 import { UpdateSchoolDto } from './dto/update-school.dto';
 import { LoginUserDto } from '../auth/dto';
-import { LoginSchoolDto } from './dto/login-school.dto';
 
 @Controller('school')
 export class SchoolController {
@@ -43,7 +42,7 @@ export class SchoolController {
   }
 
   @Post('login')
-  loginUser(@Body() loginSchoolDto: LoginSchoolDto) {
+  loginUser(@Body() loginSchoolDto: LoginUserDto) {
     return this.schoolService.login(loginSchoolDto);
   }
 }

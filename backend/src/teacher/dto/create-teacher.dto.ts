@@ -3,7 +3,7 @@ import { IsEmail, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 export class CreateTeacherDto {
   @IsString()
   @IsNotEmpty()
-  name: string;
+  fullName: string;
 
   @IsEmail()
   @IsNotEmpty()
@@ -13,7 +13,11 @@ export class CreateTeacherDto {
   @IsNotEmpty()
   password: string;
 
-  @IsNumber()
+  @IsString()
   @IsNotEmpty()
   adminSchoolId: string;
+
+  @IsString()
+  @IsNotEmpty()
+  country: string;
 }
