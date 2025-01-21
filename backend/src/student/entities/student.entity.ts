@@ -26,16 +26,13 @@ export class Student {
   @Column('text', {})
   phone: string;
 
-  @Column('text', {})
-  idProf: string;
-
   @CreateDateColumn()
   createdAt: Date;
 
   @DeleteDateColumn()
   deletedAt: Date;
 
-  @ManyToOne(() => TeacherEntity, (teacher) => teacher.student, {
+  @ManyToOne(() => TeacherEntity, (teacher) => teacher.students, {
     onDelete: 'CASCADE',
   })
   teacher: TeacherEntity;

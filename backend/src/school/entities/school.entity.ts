@@ -3,7 +3,7 @@ import { TeacherEntity } from '../../teacher/entities/teacher.entity';
 
 @Entity()
 export class AdminSchoolEntity {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: number;
 
   @Column()
@@ -24,7 +24,6 @@ export class AdminSchoolEntity {
   @Column()
   isActive: boolean;
 
-  // Define the one-to-many relationship
   @OneToMany(() => TeacherEntity, (teacher) => teacher.adminSchool)
   teachers: TeacherEntity[];
 }

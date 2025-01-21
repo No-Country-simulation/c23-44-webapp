@@ -1,4 +1,3 @@
-
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -38,7 +37,7 @@ import { StudentModule } from './student/student.module';
         type: 'postgres',
         url: configService.get('DATABASE_URL'),
         autoLoadEntities: true,
-        synchronize: true, // set to false in production
+        synchronize: false, // set to false in production
       }),
       inject: [ConfigService],
     }),
@@ -48,4 +47,3 @@ import { StudentModule } from './student/student.module';
   providers: [AppService],
 })
 export class AppModule {}
-

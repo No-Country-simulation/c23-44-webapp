@@ -1,4 +1,3 @@
-
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TeacherEntity } from './entities/teacher.entity';
@@ -18,7 +17,7 @@ export class TeacherService {
     return this.teacherRepository.find();
   }
 
-  async findOne(id: number): Promise<TeacherEntity> {
+  async findOne(id: string): Promise<TeacherEntity> {
     return this.teacherRepository.findOne({ where: { id } });
   }
 
@@ -34,14 +33,14 @@ export class TeacherService {
   }
 
   async update(
-    id: number,
+    id: string,
     user: Partial<TeacherEntity>,
   ): Promise<TeacherEntity> {
     await this.teacherRepository.update(id, user);
     return this.teacherRepository.findOne({ where: { id } });
   }
 
-  async delete(id: number): Promise<void> {
+  async delete(id: string): Promise<void> {
     await this.teacherRepository.delete(id);
   }
 }
