@@ -6,19 +6,19 @@ export class CreateSchoolDto {
   @IsString()
   fullName: string;
 
-  @ApiProperty({ description: 'Name of the school' })
+  @ApiProperty({ description: 'Email of the school' })
   @IsEmail()
   email: string;
 
-  @ApiProperty({ description: 'Name of the school' })
+  @ApiProperty({ description: 'Password of the school' })
   @IsString()
   password: string;
 
-  @ApiProperty({ description: 'Name of the school' })
+  @ApiProperty({ description: 'Country of the school' })
   @IsString()
   country: string;
 
-  @ApiProperty({ description: 'Name of the school' })
+  @ApiProperty({ description: 'Status of the school' })
   @IsBoolean()
   isActive: boolean;
 }
