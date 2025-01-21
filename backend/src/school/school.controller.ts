@@ -10,12 +10,14 @@ import {
 import { SchoolService } from './school.service';
 import { CreateSchoolDto } from './dto/create-school.dto';
 import { UpdateSchoolDto } from './dto/update-school.dto';
+import { LoginUserDto } from '../auth/dto';
+import { LoginSchoolDto } from './dto/login-school.dto';
 
 @Controller('school')
 export class SchoolController {
   constructor(private readonly schoolService: SchoolService) {}
 
-  @Post()
+  @Post('register')
   create(@Body() createSchoolDto: CreateSchoolDto) {
     return this.schoolService.create(createSchoolDto);
   }
@@ -27,16 +29,21 @@ export class SchoolController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.schoolService.findOne(+id);
+    return this.schoolService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateSchoolDto: UpdateSchoolDto) {
-    return this.schoolService.update(+id, updateSchoolDto);
+    return this.schoolService.update(id, updateSchoolDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.schoolService.delete(+id);
+    return this.schoolService.delete(id);
+  }
+
+  @Post('login')
+  loginUser(@Body() loginSchoolDto: LoginSchoolDto) {
+    return this.schoolService.login(loginSchoolDto);
   }
 }

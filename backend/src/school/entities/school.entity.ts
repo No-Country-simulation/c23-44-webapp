@@ -4,7 +4,7 @@ import { TeacherEntity } from '../../teacher/entities/teacher.entity';
 @Entity()
 export class AdminSchoolEntity {
   @PrimaryGeneratedColumn('uuid')
-  id: number;
+  id: string;
 
   @Column()
   name: string;

@@ -15,6 +15,5 @@ export class CreateTeacherDto {
 
   @IsNumber()
   @IsNotEmpty()
-  adminSchoolId: number;
+  adminSchoolId: string;
 }
-
