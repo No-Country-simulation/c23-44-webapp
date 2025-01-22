@@ -9,11 +9,11 @@ import { Repository } from 'typeorm';
 
 import * as bcrypt from 'bcrypt';
 
-import { User } from './entities/user.entity';
 import { LoginUserDto, CreateUserDto } from './dto';
 import { JwtPayload } from './interfaces/payload.interface';
 import { JwtService } from '@nestjs/jwt';
-import { Parent } from 'src/parent/entities/parent.entity';
+import { ParentEntity } from 'src/parent/entities/parent.entity';
+import { User } from './entities/user.entity';
 
 @Injectable()
 export class AuthService {
@@ -21,8 +21,8 @@ export class AuthService {
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
 
-    @InjectRepository(Parent)
-    private readonly parentRepository: Repository<Parent>,
+    @InjectRepository(ParentEntity)
+    private readonly parentRepository: Repository<ParentEntity>,
 
     private readonly jwtService: JwtService,
   ) {}
@@ -79,11 +79,11 @@ export class AuthService {
   }
 
   private handleDBErrors(error: any): never {
+    console.log(error);
     if (error.code === '23505') {
-      throw new BadRequestException(error.detail);
+      throw new BadRequestException('Email already exists');
     }
 
     throw new InternalServerErrorException('Please check server logs');
   }
 }
-

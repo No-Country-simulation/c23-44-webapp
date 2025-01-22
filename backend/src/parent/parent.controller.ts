@@ -15,10 +15,10 @@ import { UpdateParentDto } from './dto/update-parent.dto';
 export class ParentController {
   constructor(private readonly parentService: ParentService) {}
 
-  @Post()
-  create(@Body() createParentDto: CreateParentDto) {
-    return this.parentService.create(createParentDto);
-  }
+  // @Post()
+  // create(@Body() createParentDto: CreateParentDto) {
+  //   return this.parentService.create(createParentDto);
+  // }
 
   @Get()
   findAll() {

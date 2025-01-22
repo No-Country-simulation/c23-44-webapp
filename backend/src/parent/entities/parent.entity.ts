@@ -8,12 +8,12 @@ import {
   JoinColumn,
 } from 'typeorm';
 
-@Entity()
+@Entity('parent_entities')
 export class ParentEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ nullable: true })
   image: string;
 
   @OneToOne(() => User, (user) => user.parent)
