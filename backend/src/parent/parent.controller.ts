@@ -1,17 +1,19 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Get, Body, Patch, Param, UseGuards } from '@nestjs/common';
 import { ParentService } from './parent.service';
-import { CreateParentDto } from './dto/create-parent.dto';
 import { UpdateParentDto } from './dto/update-parent.dto';
+import { AuthGuard } from '@nestjs/passport';
+import { RoleProtected } from 'src/auth/decorators/role-protected.decorator';
+import { ValidRoles } from 'src/auth/interfaces';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiParam,
+  ApiTags,
+} from '@nestjs/swagger';
 
+@ApiTags('Parent')
 @Controller('parent')
+@ApiBearerAuth()
 export class ParentController {
   constructor(private readonly parentService: ParentService) {}
 
@@ -30,10 +32,14 @@ export class ParentController {
   //   return this.parentService.findOne(+id);
   // }
 
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateParentDto: UpdateParentDto) {
-  //   return this.parentService.update(+id, updateParentDto);
-  // }
+  @ApiOperation({ summary: 'Update the image of a parent' })
+  @ApiParam({ name: 'id', type: 'string', description: 'Parent ID' })
+  @Patch(':id/image')
+  @UseGuards(AuthGuard())
+  @RoleProtected(ValidRoles.PARENT)
+  update(@Param('id') id: string, @Body() updateParentDto: UpdateParentDto) {
+    return this.parentService.update(id, updateParentDto);
+  }
 
   // @Delete(':id')
   // remove(@Param('id') id: string) {

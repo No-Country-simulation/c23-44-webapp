@@ -10,6 +10,7 @@ import { User } from './entities/user.entity';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { ParentModule } from '../parent/parent.module';
 import { UserBaseEntity } from 'src/common/entity/user-base.entity';
+import { ParentEntity } from 'src/parent/entities/parent.entity';
 
 @Module({
   controllers: [AuthController],
@@ -17,9 +18,9 @@ import { UserBaseEntity } from 'src/common/entity/user-base.entity';
   imports: [
     ConfigModule,
 
-    ParentModule,
+    // ParentModule,
 
-    TypeOrmModule.forFeature([User, UserBaseEntity]),
+    TypeOrmModule.forFeature([User, UserBaseEntity, ParentEntity]),
 
     PassportModule.register({
       defaultStrategy: 'jwt',
