@@ -15,8 +15,16 @@ import { UpdateStudentDto } from './dto/update-student.dto';
 export class StudentController {
   constructor(private readonly studentService: StudentService) {}
 
-  @Post()
-  async create(@Body() createStudentDto: CreateStudentDto) {
+  @Post(':rol')
+  async create(
+    @Param('rol') rol: string,
+    @Body() createStudentDto: CreateStudentDto,
+  ) {
+    if (rol === 'teacher') {
+      createStudentDto.organization = true;
+    } else {
+      createStudentDto.organization = false;
+    }
     return await this.studentService.create(createStudentDto);
   }
 

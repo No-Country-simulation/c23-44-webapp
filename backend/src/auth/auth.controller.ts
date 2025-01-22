@@ -32,7 +32,7 @@ export class AuthController {
     return this.authService.login(loginUserDto);
   }
 
-  @Get('test')
+  @Post('test')
   @RoleProtected(ValidRoles.ADMIN_SCHOOL)
   @UseGuards(AuthGuard(), UserRoleGuard)
   test(
@@ -41,6 +41,7 @@ export class AuthController {
     @RawHeaders() rawHeaders: string[],
     @Headers() headers: IncomingHttpHeaders,
   ) {
+    console.log('paso por  aquier');
     return {
       user,
       userEmail,
@@ -57,4 +58,3 @@ export class AuthController {
     };
   }
 }
-

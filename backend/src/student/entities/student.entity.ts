@@ -27,16 +27,19 @@ export class Student {
   phone: string;
 
   @Column('text', {})
-  idProf: string;
+  organization: boolean;
 
   @CreateDateColumn()
   createdAt: Date;
 
+  @CreateDateColumn()
+  updatedAt: Date;
+
   @DeleteDateColumn()
   deletedAt: Date;
 
-  @ManyToOne(() => TeacherEntity, (teacher) => teacher.student, {
-    onDelete: 'CASCADE',
-  })
+  @ManyToOne(() => TeacherEntity, (teacher) => teacher.student)
   teacher: TeacherEntity;
+  // @ManyToMany(() => parentEntity,(parent)=> parent.student)
+  // parent: ParentEntity;
 }

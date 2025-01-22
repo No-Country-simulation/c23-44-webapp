@@ -22,4 +22,3 @@ export class TeacherEntity {
   @ManyToOne(() => AdminSchoolEntity, (adminSchool) => adminSchool.teachers)
   adminSchool: AdminSchoolEntity;
 }
-
