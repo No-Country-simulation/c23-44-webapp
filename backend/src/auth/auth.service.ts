@@ -9,16 +9,20 @@ import { Repository } from 'typeorm';
 
 import * as bcrypt from 'bcrypt';
 
-import { User } from './entities/user.entity';
 import { LoginUserDto, CreateUserDto } from './dto';
 import { JwtPayload } from './interfaces/payload.interface';
 import { JwtService } from '@nestjs/jwt';
+import { ParentEntity } from 'src/parent/entities/parent.entity';
+import { User } from './entities/user.entity';
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+
+    @InjectRepository(ParentEntity)
+    private readonly parentRepository: Repository<ParentEntity>,
 
     private readonly jwtService: JwtService,
   ) {}
@@ -33,6 +37,10 @@ export class AuthService {
       });
 
       await this.userRepository.save(user);
+
+      //Crear padre/madre en base de datos para la relación one-to-one
+      const parent = this.parentRepository.create({ user });
+      await this.parentRepository.save(parent);
 
       return {
         ...user,
@@ -71,11 +79,11 @@ export class AuthService {
   }
 
   private handleDBErrors(error: any): never {
+    console.log(error);
     if (error.code === '23505') {
-      throw new BadRequestException(error.detail);
+      throw new BadRequestException('Email already exists');
     }
 
     throw new InternalServerErrorException('Please check server logs');
   }
 }
-

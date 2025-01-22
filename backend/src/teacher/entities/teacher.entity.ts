@@ -18,9 +18,7 @@ export class TeacherEntity extends UserBaseEntity {
   @OneToMany(() => Student, (student) => student.teacher)
   students: Student[];
 
-  @ManyToOne(() => AdminSchoolEntity, (adminSchool) => adminSchool.teachers, {
-    onDelete: 'CASCADE',
-  })
-  @JoinColumn({ name: 'adminSchoolId' })
+  @ManyToOne(() => AdminSchoolEntity, (adminSchool) => adminSchool.teachers)
+  // @JoinColumn({ name: 'adminSchoolId' })
   adminSchool: AdminSchoolEntity;
 }
