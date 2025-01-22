@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 import { ValidRoles } from '../interfaces';
 import { TeacherEntity } from 'src/teacher/entities/teacher.entity';
-import { Parent } from '../../parent/entities/parent.entity';
+import { ParentEntity } from '../../parent/entities/parent.entity';
 
 @Entity('users')
 export class User {
@@ -41,8 +41,8 @@ export class User {
   // @OneToOne(() => TeacherEntity, (teacher) => teacher.user)
   // teacher: TeacherEntity;
 
-  @OneToOne(() => Parent, (parent) => parent.user)
-  parent: Parent;
+  @OneToOne(() => ParentEntity, (parent) => parent.user)
+  parent: ParentEntity;
 
   // @OneToOne(() => Student, { nullable: true })
   // @JoinColumn()

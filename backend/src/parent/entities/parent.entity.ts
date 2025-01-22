@@ -9,14 +9,17 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class Parent {
+export class ParentEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  //   @ManyToMany(() => Student, student => student.parents)
-  //   children: Student[];
+  @Column()
+  image: string;
 
   @OneToOne(() => User, (user) => user.parent)
   @JoinColumn()
   user: User;
+
+  // @ManyToMany(() => StudentEntity, (student) => student.parents)
+  // children: StudentEntity[];
 }
