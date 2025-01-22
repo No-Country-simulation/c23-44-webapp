@@ -12,7 +12,6 @@ import { TeacherService } from './teacher.service';
 import { CreateTeacherDto } from './dto/create-teacher.dto';
 import { UpdateTeacherDto } from './dto/update-teacher.dto';
 
-
 @Controller('teacher')
 export class TeacherController {
   constructor(private readonly teacherService: TeacherService) {}
@@ -29,16 +28,16 @@ export class TeacherController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.teacherService.findOne(+id);
+    return this.teacherService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateTeacherDto: UpdateTeacherDto) {
-    return this.teacherService.update(+id, updateTeacherDto);
+    return this.teacherService.update(id, updateTeacherDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.teacherService.delete(+id);
+    return this.teacherService.delete(id);
   }
 }

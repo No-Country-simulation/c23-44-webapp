@@ -1,10 +1,10 @@
-
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TeacherEntity } from './entities/teacher.entity';
 import { Repository } from 'typeorm';
 import { AdminSchoolEntity } from '../school/entities/school.entity';
 import { CreateTeacherDto } from './dto/create-teacher.dto';
+import { ValidRoles } from '../common/interface/user-roles';
 
 @Injectable()
 export class TeacherService {
@@ -18,7 +18,7 @@ export class TeacherService {
     return this.teacherRepository.find();
   }
 
-  async findOne(id: number): Promise<TeacherEntity> {
+  async findOne(id: string): Promise<TeacherEntity> {
     return this.teacherRepository.findOne({ where: { id } });
   }
 
@@ -28,20 +28,21 @@ export class TeacherService {
     });
     const newTeacher = this.teacherRepository.create({
       ...teacher,
+      role: ValidRoles.TEACHER,
       adminSchool: findAdminSchool,
     });
     return this.teacherRepository.save(newTeacher);
   }
 
   async update(
-    id: number,
+    id: string,
     user: Partial<TeacherEntity>,
   ): Promise<TeacherEntity> {
     await this.teacherRepository.update(id, user);
     return this.teacherRepository.findOne({ where: { id } });
   }
 
-  async delete(id: number): Promise<void> {
+  async delete(id: string): Promise<void> {
     await this.teacherRepository.delete(id);
   }
 }

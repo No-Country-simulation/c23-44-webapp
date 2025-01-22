@@ -1,32 +1,26 @@
+import { User } from 'src/auth/entities/user.entity';
 import {
   Column,
   DeleteDateColumn,
   Entity,
   PrimaryGeneratedColumn,
   CreateDateColumn,
-  ManyToOne,
+  OneToOne,
 } from 'typeorm';
-import { TeacherEntity } from 'src/teacher/entities/teacher.entity';
+// import { TeacherEntity } from 'src/teacher/entities/teacher.entity';
 
 @Entity('student')
 export class Student {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column('text', {
-    name: 'name',
-  })
-  name: string;
+  @Column('text')
+  curso: string;
 
-  @Column('text', {
-    unique: true,
-  })
-  email: string;
+  @Column('text')
+  nivel: string;
 
-  @Column('text', {})
-  phone: string;
-
-  @Column('text', {})
+  @Column('text')
   organization: boolean;
 
   @CreateDateColumn()
@@ -38,8 +32,9 @@ export class Student {
   @DeleteDateColumn()
   deletedAt: Date;
 
-  @ManyToOne(() => TeacherEntity, (teacher) => teacher.student)
-  teacher: TeacherEntity;
+  @OneToOne(() => User, (user) => user.id)
+  user: User;
+  // teacher: TeacherEntity;
   // @ManyToMany(() => parentEntity,(parent)=> parent.student)
   // parent: ParentEntity;
 }

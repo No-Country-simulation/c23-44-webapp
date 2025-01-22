@@ -2,12 +2,12 @@ import {
   BeforeInsert,
   Column,
   Entity,
-  JoinColumn,
-  OneToOne,
+  // JoinColumn,
+  // OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ValidRoles } from '../interfaces';
-import { TeacherEntity } from 'src/teacher/entities/teacher.entity';
+// import { TeacherEntity } from 'src/teacher/entities/teacher.entity';
 
 @Entity('users')
 export class User {

@@ -1,4 +1,3 @@
-
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -39,6 +38,7 @@ import { StudentModule } from './student/student.module';
         url: configService.get('DATABASE_URL'),
         autoLoadEntities: true,
         synchronize: true, // set to false in production
+        entities: [__dirname + '/**/*.entity{.ts,.js}'],
       }),
       inject: [ConfigService],
     }),
@@ -48,4 +48,3 @@ import { StudentModule } from './student/student.module';
   providers: [AppService],
 })
 export class AppModule {}
-
