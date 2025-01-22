@@ -40,3 +40,4 @@ import { ParentModule } from '../parent/parent.module';
   exports: [TypeOrmModule, JwtStrategy, PassportModule, JwtModule],
 })
 export class AuthModule {}
+

@@ -1,20 +1,26 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  OneToMany,
+  CreateDateColumn,
+  UpdateDateColumn,
+  JoinColumn,
+  ChildEntity,
+} from 'typeorm';
 import { AdminSchoolEntity } from '../../school/entities/school.entity';
+import { Student } from 'src/student/entities/student.entity';
+import { UserBaseEntity } from '../../common/entity/user-base.entity';
 
-@Entity()
-export class TeacherEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
+@ChildEntity()
+export class TeacherEntity extends UserBaseEntity {
+  @OneToMany(() => Student, (student) => student.teacher)
+  students: Student[];
 
-  @Column()
-  name: string;
-
-  @Column()
-  email: string;
-
-  @Column()
-  password: string;
-
-  @ManyToOne(() => AdminSchoolEntity, (adminSchool) => adminSchool.teachers)
+  @ManyToOne(() => AdminSchoolEntity, (adminSchool) => adminSchool.teachers, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'adminSchoolId' })
   adminSchool: AdminSchoolEntity;
 }

@@ -11,3 +11,4 @@ import { AdminSchoolEntity } from '../school/entities/school.entity';
   providers: [TeacherService],
 })
 export class TeacherModule {}
+

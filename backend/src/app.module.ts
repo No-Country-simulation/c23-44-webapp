@@ -37,6 +37,7 @@ import { ParentModule } from './parent/parent.module';
         url: configService.get('DATABASE_URL'),
         autoLoadEntities: true,
         synchronize: true, // set to false in production
+        entities: [__dirname + '/**/*.entity{.ts,.js}'],
       }),
       inject: [ConfigService],
     }),

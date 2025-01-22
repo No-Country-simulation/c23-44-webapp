@@ -53,3 +53,4 @@ export class User {
     this.email = this.email.toLowerCase().trim();
   }
 }
+
