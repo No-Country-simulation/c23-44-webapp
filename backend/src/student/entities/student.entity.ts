@@ -1,4 +1,4 @@
-import { User } from 'src/auth/entities/user.entity';
+import { UserBaseEntity } from 'src/common/entity/user-base.entity';
 import {
   Column,
   DeleteDateColumn,
@@ -7,20 +7,19 @@ import {
   CreateDateColumn,
   OneToOne,
 } from 'typeorm';
-// import { TeacherEntity } from 'src/teacher/entities/teacher.entity';
 
 @Entity('student')
 export class Student {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column('text')
+  @Column()
   curso: string;
 
-  @Column('text')
+  @Column()
   nivel: string;
 
-  @Column('text')
+  @Column()
   organization: boolean;
 
   @CreateDateColumn()
@@ -32,9 +31,6 @@ export class Student {
   @DeleteDateColumn()
   deletedAt: Date;
 
-  @OneToOne(() => User, (user) => user.id)
-  user: User;
-  // teacher: TeacherEntity;
-  // @ManyToMany(() => parentEntity,(parent)=> parent.student)
-  // parent: ParentEntity;
+  @OneToOne(() => UserBaseEntity, (user) => user.id)
+  user: UserBaseEntity;
 }

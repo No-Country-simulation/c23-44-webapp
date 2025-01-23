@@ -1,10 +1,11 @@
 import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as morgan from 'morgan';
 import {
   ClassSerializerInterceptor,
   ValidationPipe,
-  Logger,
+  // Logger,
 } from '@nestjs/common';
 
 async function bootstrap() {
@@ -16,7 +17,7 @@ async function bootstrap() {
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, documentFactory);
-
+  app.use(morgan('dev'));
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true, // evita campos extras en el Payload al crear

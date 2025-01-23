@@ -16,15 +16,17 @@ export class User {
 
   @Column('text', {
     unique: true,
+    nullable: true,
   })
   email: string;
 
   @Column('text', {
     select: false,
+    nullable: true,
   })
   password: string;
 
-  @Column('text')
+  @Column('text', { nullable: true })
   fullName: string;
 
   @Column('bool', {

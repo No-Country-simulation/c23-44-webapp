@@ -1,16 +1,12 @@
-import { IsBoolean, IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsString } from 'class-validator';
 export class CreateStudentDto {
   @IsString()
   @IsNotEmpty()
-  name: string;
-
-  @IsEmail()
-  @IsNotEmpty()
-  email: string;
+  curso: string;
 
   @IsString()
-  @IsNotEmpty()
-  phone: string;
+  nivel: string;
+
   @IsBoolean()
   organization: boolean;
 }
