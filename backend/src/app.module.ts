@@ -5,6 +5,8 @@ import { TeacherModule } from './teacher/teacher.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
+import { SchoolModule } from './school/school.module';
+import { ParentModule } from './parent/parent.module';
 
 @Module({
   imports: [
@@ -35,9 +37,12 @@ import { AuthModule } from './auth/auth.module';
         url: configService.get('DATABASE_URL'),
         autoLoadEntities: true,
         synchronize: true, // set to false in production
+        entities: [__dirname + '/**/*.entity{.ts,.js}'],
       }),
       inject: [ConfigService],
     }),
+    SchoolModule,
+    ParentModule,
   ],
   controllers: [AppController],
   providers: [AppService],
