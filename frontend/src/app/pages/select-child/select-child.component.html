@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="select-child">
+    <h2 class="select-child__title">Seleccionar Perfil</h2>
+    <div class="select-child__grid">
+      <div
+        *ngFor="let child of children"
+        class="select-child__card"
+        (click)="viewChildProfile(child.id)"
+      >
+        <div class="select-child__avatar">
+          <img [src]="child.avatar" [alt]="child.name" />
+        </div>
+        <h3 class="select-child__name">{{ child.name }}</h3>
+        <p class="select-child__level">Nivel {{ child.level }}</p>
+      </div>
+    </div>
+  </div>
+</div>

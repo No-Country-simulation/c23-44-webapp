@@ -1,1 +1,50 @@
-<p>levels works!</p>
+<div class="levels">
+  <div class="levels__header">
+    <div class="levels__header-content">
+      <img
+        src="assets/img/img_level.png"
+        alt="Estudiante"
+        class="levels__header-image"
+      />
+      <div class="levels__header-text">
+        <h2 class="levels__header-title">Haz la prueba de nivelación</h2>
+        <p class="levels__header-subtitle">
+          Con la prueba podrás saber en qué nivel estás y por dónde empezar
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="levels__grid">
+    <div *ngFor="let level of levels" class="levels__circle-container">
+      <div class="levels__circle" [style.border-color]="level.color">
+        <span class="levels__circle-text">{{ level.name }}</span>
+      </div>
+      <img
+        src="assets/img/dragon_grid.png"
+        alt="Dragón"
+        class="levels__dragon"
+        [class]="'levels__dragon--' + level.imagePosition"
+      />
+    </div>
+  </div>
+
+  <div class="levels__categories">
+    <h3 class="levels__categories-title">Para Todos</h3>
+    <div class="levels__categories-content">
+      <div class="levels__categories-buttons">
+        <button
+          *ngFor="let category of categories"
+          class="levels__button"
+          [style.background-color]="category.color"
+        >
+          {{ category.name }}
+        </button>
+      </div>
+      <p class="levels__categories-note">
+        Aunque nuestro producto está dirigido a niños, tenemos actividades que
+        pueden ayudar a adultos y adolescentes a mejorar su lectura
+      </p>
+    </div>
+  </div>
+</div>
