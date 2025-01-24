@@ -1,29 +1,27 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BeforeInsert,
+  // Column,
+  OneToOne,
+  Entity,
+  // JoinColumn,
+  // OneToOne,
+  // PrimaryGeneratedColumn,
+} from 'typeorm';
+// import { ValidRoles } from '../interfaces';
+
+// import { TeacherEntity } from 'src/teacher/entities/teacher.entity';
+import { ParentEntity } from '../../parent/entities/parent.entity';
+import { UserBaseEntity } from 'src/common/entity/user-base.entity';
 
 @Entity('users')
-export class User {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+export class User extends UserBaseEntity {
+  @OneToOne(() => ParentEntity, (parent) => parent.user)
+  parent: ParentEntity;
 
-  @Column('text', {
-    unique: true,
-  })
-  email: string;
-
-  @Column('text')
-  password: string;
-
-  @Column('text')
-  fullName: string;
-
-  @Column('bool', {
-    default: true,
-  })
-  isActive: boolean;
-
-  @Column('text', {
-    array: true,
-    default: ['user'],
-  })
-  roles: string[];
+  @BeforeInsert()
+  normalizeEmail() {
+    if (this.email) {
+      this.email = this.email.toLowerCase().trim();
+    }
+  }
 }

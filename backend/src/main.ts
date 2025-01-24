@@ -1,18 +1,24 @@
 import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
+import * as morgan from 'morgan';
+import {
+  ClassSerializerInterceptor,
+  ValidationPipe,
+  // Logger,
+} from '@nestjs/common';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { cors: true });
   const config = new DocumentBuilder()
     .setTitle('Plataforma Educativa')
     .setDescription('The Plataforma Educativa API description')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, documentFactory);
-
+  app.use(morgan('dev'));
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true, // evita campos extras en el Payload al crear
