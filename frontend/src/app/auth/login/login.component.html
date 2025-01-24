@@ -1,65 +1,126 @@
 <!-- component -->
 <!-- component -->
-<div class="bg-sky-100 flex justify-center items-center h-screen">
-  <!-- Left: Image -->
-  <div class="w-1/2 h-screen hidden lg:block">
-    <img
-      src="https://img.freepik.com/fotos-premium/imagen-fondo_910766-187.jpg?w=826"
-      alt="Placeholder Image"
-      class="object-cover w-full h-full"
-    />
+<div class="login">
+  <!-- Contenedor principal -->
+  <div class="login__container">
+    <div class="login__form-wrapper">
+      <div class="login__back">
+        <button class="login__back-btn" routerLink="/">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="login__back-btn-icon"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
+              clip-rule="evenodd"
+            />
+          </svg>
+          Back
+        </button>
+      </div>
+
+      <div class="login__form">
+        <div class="text-center mb-8">
+          <h2 class="text-2xl font-bold text-gray-900 mb-2">Usuário</h2>
+        </div>
+
+        <form class="space-y-6">
+          <div class="form__field">
+            <div
+              class="flex items-center border-2 border-gray-200 py-2 px-3 rounded-lg hover:border-indigo-400 transition-colors"
+            >
+              <input
+                class="pl-2 w-full outline-none border-none bg-transparent"
+                type="text"
+                name="username"
+                id="username"
+                placeholder="@sm1lle"
+              />
+            </div>
+          </div>
+
+          <div class="form__field">
+            <div
+              class="flex items-center border-2 border-gray-200 py-2 px-3 rounded-lg hover:border-indigo-400 transition-colors"
+            >
+              <input
+                class="pl-2 w-full outline-none border-none bg-transparent"
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Senha"
+              />
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-teal-500 hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-colors duration-200"
+          >
+            Entrar
+          </button>
+
+          <div class="flex flex-col items-center gap-4 mt-4">
+            <button
+              class="w-full flex items-center justify-center gap-2 py-2 px-4 border-2 rounded-lg text-sm"
+            >
+              <img
+                src="assets/facebook-icon.png"
+                alt="Facebook"
+                class="w-6 h-6"
+              />
+              Entrar com Facebook
+            </button>
+
+            <button
+              class="w-full flex items-center justify-center gap-2 py-2 px-4 border-2 rounded-lg text-sm"
+            >
+              <img src="assets/google-icon.png" alt="Google" class="w-6 h-6" />
+              Entrar com Google
+            </button>
+          </div>
+
+          <div class="text-center mt-4">
+            <a href="#" class="text-sm text-gray-600 hover:text-teal-500"
+              >Esqueceu a senha?</a
+            >
+            <br />
+            <a
+              href="/register"
+              class="text-sm text-gray-600 hover:text-teal-500"
+              >Cadastrar-se</a
+            >
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
-  <!-- Right: Login Form -->
-  <div class="lg:p-36 md:p-52 sm:p-20 p-8 w-full lg:w-1/2">
-    <h1 class="text-2xl font-semibold mb-4">Login</h1>
-    <form action="#" method="POST">
-      <!-- Username Input -->
-      <div class="mb-4 bg-sky-100">
-        <label for="username" class="block text-gray-600">Username</label>
-        <input
-          type="text"
-          id="username"
-          name="username"
-          class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
-          autocomplete="off"
-        />
-      </div>
-      <!-- Password Input -->
-      <div class="mb-4">
-        <label for="password" class="block text-gray-800">Password</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500"
-          autocomplete="off"
-        />
-      </div>
-      <!-- Remember Me Checkbox -->
-      <div class="mb-4 flex items-center">
-        <input
-          type="checkbox"
-          id="remember"
-          name="remember"
-          class="text-red-500"
-        />
-        <label for="remember" class="text-green-900 ml-2">Remember Me</label>
-      </div>
-      <!-- Forgot Password Link -->
-      <div class="mb-6 text-blue-500">
-        <a href="#" class="hover:underline">Forgot Password?</a>
-      </div>
-      <!-- Login Button -->
+
+  <!-- Modal de selección de tipo de usuario -->
+  <div *ngIf="showUserTypeModal" class="user-type-modal">
+    <div class="user-type-modal__overlay"></div>
+    <div class="user-type-modal__content">
       <button
-        type="submit"
-        class="bg-red-500 hover:bg-blue-600 text-white font-semibold rounded-md py-2 px-4 w-full"
+        (click)="selectUserType('parent')"
+        class="user-type-modal__btn user-type-modal__btn--parent"
       >
-        Login
+        Soy Padre
       </button>
-    </form>
-    <!-- Sign up Link -->
-    <div class="mt-6 text-green-500 text-center">
-      <a href="#" class="hover:underline">Sign up Here</a>
+      <button
+        (click)="selectUserType('teacher')"
+        class="user-type-modal__btn user-type-modal__btn--teacher"
+      >
+        Soy Profesor
+      </button>
+      <button
+        (click)="selectUserType('teacher')"
+        class="user-type-modal__btn user-type-modal__btn--teacher"
+      >
+        Soy Institucion
+      </button>
     </div>
   </div>
 </div>

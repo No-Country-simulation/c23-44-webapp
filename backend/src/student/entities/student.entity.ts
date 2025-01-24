@@ -1,39 +1,24 @@
+import { UserBaseEntity } from 'src/common/entity/user-base.entity';
+// import { ParentEntity } from 'src/parent/entities/parent.entity';
+// import { TeacherEntity } from 'src/teacher/entities/teacher.entity';
 import {
-  Column,
-  DeleteDateColumn,
+  BeforeInsert,
   Entity,
-  PrimaryGeneratedColumn,
-  CreateDateColumn,
-  ManyToOne,
+  // OneToOne
 } from 'typeorm';
-import { TeacherEntity } from 'src/teacher/entities/teacher.entity';
 
 @Entity('student')
-export class Student {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+export class Student extends UserBaseEntity {
+  // @OneToOne(() => ParentEntity, (parent) => parent.student)
+  // parent: ParentEntity;
 
-  @Column('text', {
-    name: 'name',
-  })
-  name: string;
+  // @OneToOne(() => TeacherEntity, (teacher) => teacher.student)
+  // teacher: TeacherEntity;
 
-  @Column('text', {
-    unique: true,
-  })
-  email: string;
-
-  @Column('text', {})
-  phone: string;
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @DeleteDateColumn()
-  deletedAt: Date;
-
-  @ManyToOne(() => TeacherEntity, (teacher) => teacher.students, {
-    onDelete: 'CASCADE',
-  })
-  teacher: TeacherEntity;
+  @BeforeInsert()
+  normalizeEmail() {
+    if (this.email) {
+      this.email = this.email.toLowerCase().trim();
+    }
+  }
 }

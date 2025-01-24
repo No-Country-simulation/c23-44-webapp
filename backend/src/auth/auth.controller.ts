@@ -5,6 +5,7 @@ import {
   Get,
   UseGuards,
   Headers,
+  HttpCode,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto, LoginUserDto } from './dto';
@@ -17,22 +18,28 @@ import { UserRoleGuard } from './guards/user-role/user-role.guard';
 import { RoleProtected } from './decorators/role-protected.decorator';
 import { ValidRoles } from './interfaces';
 import { Auth } from './decorators/auth.decorator';
+import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  @ApiOperation({ summary: 'User register' })
+  @ApiResponse({ status: 201, description: 'User registered' })
   @Post('register')
   createUser(@Body() createUserDto: CreateUserDto) {
     return this.authService.create(createUserDto);
   }
 
+  @ApiOperation({ summary: 'User login' })
+  @ApiResponse({ status: 200, description: 'User logged in' })
   @Post('login')
+  @HttpCode(200)
   loginUser(@Body() loginUserDto: LoginUserDto) {
     return this.authService.login(loginUserDto);
   }
 
-  @Get('test')
+  @Post('test')
   @RoleProtected(ValidRoles.ADMIN_SCHOOL)
   @UseGuards(AuthGuard(), UserRoleGuard)
   test(
@@ -41,6 +48,7 @@ export class AuthController {
     @RawHeaders() rawHeaders: string[],
     @Headers() headers: IncomingHttpHeaders,
   ) {
+    console.log('paso por  aquier');
     return {
       user,
       userEmail,
@@ -57,4 +65,3 @@ export class AuthController {
     };
   }
 }
-

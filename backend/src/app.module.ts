@@ -8,12 +8,12 @@ import { AuthModule } from './auth/auth.module';
 import { SchoolModule } from './school/school.module';
 import { StudentModule } from './student/student.module';
 import { PaymentModule } from './payment/payment.module';
+import { ParentModule } from './parent/parent.module';
 
 @Module({
   imports: [
     TeacherModule,
     AuthModule,
-    StudentModule,
 
     // ConfigModule.forRoot({ isGlobal: true }),
     // TypeOrmModule.forRoot({
@@ -45,6 +45,7 @@ import { PaymentModule } from './payment/payment.module';
     }),
     SchoolModule,
     PaymentModule,
+    ParentModule,
   ],
   controllers: [AppController],
   providers: [AppService],

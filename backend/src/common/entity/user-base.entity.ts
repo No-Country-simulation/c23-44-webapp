@@ -12,21 +12,21 @@ export class UserBaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ nullable: true })
+  @Column()
   fullName: string;
 
-  @Column({ nullable: true })
+  @Column({ unique: true })
   email: string;
 
-  @Column({ nullable: true })
+  @Column()
   password: string;
 
-  @Column({ nullable: true })
+  @Column({ type: 'enum', enum: ValidRoles, default: ValidRoles.PARENT })
   role: ValidRoles;
 
-  @Column({ nullable: true })
+  @Column()
   country: string;
 
-  @Column({ nullable: true, default: true })
+  @Column({ default: true })
   isActive: boolean;
 }
