@@ -1,0 +1,157 @@
+<div class="header-wrapper">
+  <div class="overlay" [class.active]="isMenuOpen" (click)="closeMenu()"></div>
+  <header class="header">
+    <div class="header__logo-container">
+      <a href="">
+        <img class="header__logo" src="assets/img/logo.png" alt="logo" />
+        <h1 class="text-3xl font-bold">Cocondrijo</h1>
+      </a>
+    </div>
+
+    <!-- Botón hamburguesa animado -->
+    <button
+      class="hamburger-menu md:hidden"
+      [class.active]="isMenuOpen"
+      (click)="toggleMenu()"
+    >
+      <span class="hamburger-menu__line"></span>
+      <span class="hamburger-menu__line"></span>
+      <span class="hamburger-menu__line"></span>
+    </button>
+
+    <!-- Menú de navegación -->
+    <div
+      class="header__nav-container"
+      [ngClass]="{'hidden md:flex': !isMenuOpen, 'flex': isMenuOpen}"
+    >
+      <nav class="header__nav-bar">
+        <ul class="text-3xl font-bold flex flex-col md:flex-row gap-8">
+          <li>
+            <a routerLink="/levels" routerLinkActive="text-yellow-400"
+              >Niveles</a
+            >
+          </li>
+          <li>
+            <a routerLink="/reading" routerLinkActive="text-yellow-400"
+              >Lectura</a
+            >
+          </li>
+          <li>
+            <a routerLink="/activities" routerLinkActive="text-yellow-400"
+              >Actividades</a
+            >
+          </li>
+        </ul>
+      </nav>
+      <div class="header__user-section" (click)="toggleUserMenu()">
+        <div class="header__user-info">
+          <img
+            class="header__user-avatar"
+            [src]="currentUser.avatar"
+            [alt]="currentUser.name"
+          />
+          <span class="header__user-name">{{ currentUser.name }}</span>
+        </div>
+
+        <!-- Icono de notificaciones -->
+        <div class="header__notifications">
+          <button
+            class="header__notification-btn"
+            (click)="toggleNotifications($event)"
+          >
+            <i class="header__notification-icon">🔔</i>
+            <span
+              class="header__notification-badge"
+              *ngIf="unreadNotifications > 0"
+            >
+              {{ unreadNotifications }}
+            </span>
+          </button>
+
+          <!-- Dropdown de notificaciones -->
+          <div
+            class="header__notifications-dropdown"
+            *ngIf="isNotificationsOpen"
+          >
+            <div class="header__notifications-header">
+              <span class="header__notifications-title">Notificaciones</span>
+              <button
+                class="header__notifications-read-all"
+                (click)="markAllAsRead()"
+                *ngIf="unreadNotifications > 0"
+              >
+                Marcar todas como leídas
+              </button>
+            </div>
+            <div class="header__notifications-list">
+              <div
+                *ngFor="let notification of notifications"
+                class="header__notification-item"
+                [class.unread]="!notification.isRead"
+                (click)="markAsRead(notification)"
+              >
+                <p class="header__notification-message">
+                  {{ notification.message }}
+                </p>
+                <span class="header__notification-time"
+                  >{{ notification.time }}</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Menú desplegable del usuario -->
+        <div class="header__user-dropdown" *ngIf="isUserMenuOpen">
+          <div class="header__dropdown-header">
+            <span class="header__dropdown-title">MENU DE USUARIO</span>
+            <button
+              class="header__dropdown-close"
+              (click)="closeUserMenu($event)"
+            >
+              ✕
+            </button>
+          </div>
+
+          <div class="header__dropdown-user">
+            <img
+              [src]="currentUser.avatar"
+              [alt]="currentUser.name"
+              class="header__dropdown-avatar"
+            />
+            <span class="header__dropdown-name">{{ currentUser.name }}</span>
+          </div>
+
+          <nav class="header__dropdown-nav">
+            <a
+              routerLink="/profile"
+              class="header__dropdown-item"
+              (click)="isUserMenuOpen = false"
+              >Perfil</a
+            >
+            <a
+              routerLink="/select-child"
+              class="header__dropdown-item"
+              (click)="isUserMenuOpen = false"
+              >Perfil hijo</a
+            >
+            <a
+              routerLink="/settings"
+              class="header__dropdown-item"
+              (click)="isUserMenuOpen = false"
+            >
+              Configuraciones
+              <i class="header__dropdown-icon">⚙️</i>
+            </a>
+            <button
+              class="header__dropdown-item header__dropdown-logout"
+              (click)="logout()"
+            >
+              Salir
+            </button>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
+</div>

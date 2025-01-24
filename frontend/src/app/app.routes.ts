@@ -35,6 +35,34 @@ export const routes: Routes = [
             (m) => m.ActivitiesComponent
           ),
       },
+      {
+        path: 'profile',
+        loadComponent: () =>
+          import('./pages/profile/profile.component').then(
+            (m) => m.ProfileComponent
+          ),
+      },
+      {
+        path: 'select-child',
+        loadComponent: () =>
+          import('./pages/select-child/select-child.component').then(
+            (m) => m.SelectChildComponent
+          ),
+      },
+      {
+        path: 'child-profile/:id',
+        loadComponent: () =>
+          import('./pages/child-profile/child-profile.component').then(
+            (m) => m.ChildProfileComponent
+          ),
+      },
+      {
+        path: 'settings',
+        loadComponent: () =>
+          import('./pages/settings/settings.component').then(
+            (m) => m.SettingsComponent
+          ),
+      },
     ],
   },
   {
@@ -44,6 +72,10 @@ export const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent,
+  },
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
   {
     path: '**',

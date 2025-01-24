@@ -1,12 +1,12 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import {ReactiveFormsModule} from '@angular/forms';
-
 @Component({
   selector: 'app-register',
-  imports: [ReactiveFormsModule],
+  standalone: true,
+  imports: [RouterModule, CommonModule, ReactiveFormsModule],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.scss'
+  styleUrl: './register.component.scss',
 })
-export class RegisterComponent {
-
-}
+export class RegisterComponent {}
