@@ -1,12 +1,5 @@
 import { IsBoolean, IsNotEmpty, IsString } from 'class-validator';
-export class CreateStudentDto {
-  @IsString()
-  @IsNotEmpty()
-  curso: string;
-
-  @IsString()
-  nivel: string;
-
-  @IsBoolean()
-  organization: boolean;
+import { UserBaseEntity } from 'src/common/entity/user-base.entity';
+export class CreateStudentDto extends UserBaseEntity {
+  
 }

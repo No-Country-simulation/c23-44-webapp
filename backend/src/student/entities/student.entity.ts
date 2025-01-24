@@ -1,36 +1,24 @@
 import { UserBaseEntity } from 'src/common/entity/user-base.entity';
+// import { ParentEntity } from 'src/parent/entities/parent.entity';
+// import { TeacherEntity } from 'src/teacher/entities/teacher.entity';
 import {
-  Column,
-  DeleteDateColumn,
+  BeforeInsert,
   Entity,
-  PrimaryGeneratedColumn,
-  CreateDateColumn,
-  OneToOne,
+  // OneToOne
 } from 'typeorm';
 
 @Entity('student')
-export class Student {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+export class Student extends UserBaseEntity {
+  // @OneToOne(() => ParentEntity, (parent) => parent.student)
+  // parent: ParentEntity;
 
-  @Column()
-  curso: string;
+  // @OneToOne(() => TeacherEntity, (teacher) => teacher.student)
+  // teacher: TeacherEntity;
 
-  @Column()
-  nivel: string;
-
-  @Column()
-  organization: boolean;
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @CreateDateColumn()
-  updatedAt: Date;
-
-  @DeleteDateColumn()
-  deletedAt: Date;
-
-  @OneToOne(() => UserBaseEntity, (user) => user.id)
-  user: UserBaseEntity;
+  @BeforeInsert()
+  normalizeEmail() {
+    if (this.email) {
+      this.email = this.email.toLowerCase().trim();
+    }
+  }
 }
