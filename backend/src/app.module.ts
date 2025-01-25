@@ -7,6 +7,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { SchoolModule } from './school/school.module';
 import { ParentModule } from './parent/parent.module';
+import { Student } from './student/entities/student.entity';
+import { ParentEntity } from './parent/entities/parent.entity';
+import { StudentModule } from './student/student.module';
 
 @Module({
   imports: [
@@ -42,6 +45,8 @@ import { ParentModule } from './parent/parent.module';
       inject: [ConfigService],
     }),
     SchoolModule,
+    ParentModule,
+    StudentModule,
     ParentModule,
   ],
   controllers: [AppController],
