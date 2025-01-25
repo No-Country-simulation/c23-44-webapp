@@ -11,7 +11,7 @@ import { PaymentModule } from './payment/payment.module';
 import { ParentModule } from './parent/parent.module';
 import { Student } from './student/entities/student.entity';
 import { ParentEntity } from './parent/entities/parent.entity';
-import { StudentModule } from './student/student.module';
+
 
 @Module({
   imports: [
@@ -50,7 +50,6 @@ import { StudentModule } from './student/student.module';
     PaymentModule,
     ParentModule,
     StudentModule,
-    ParentModule,
   ],
   controllers: [AppController],
   providers: [AppService],
