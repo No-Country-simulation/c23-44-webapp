@@ -8,12 +8,12 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
   imports: [ConfigModule.forRoot()],
   providers: [
     PaymentService,
-    {
+    /*{
       provide: 'STRIPE_API_KEY',
       useFactory: async (configService: ConfigService) =>
         configService.get('STRIPE_API_KEY'),
       inject: [ConfigService],
-    },
+    },*/
   ],
 })
 export class PaymentModule {}

@@ -1,13 +1,13 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
-import Stripe from 'stripe';
+//import Stripe from 'stripe';
 
 @Injectable()
 export class PaymentService {
-  private stripe: Stripe;
-  constructor(@Inject('STRIPE_API_KEY') private readonly apiKey: string) {
-    this.stripe = new Stripe(this.apiKey, {
+  //private stripe: Stripe;
+  constructor() {
+    /*this.stripe = new Stripe(this.apiKey, {
       apiVersion: '2024-12-18.acacia',
-    });
+    });*/
   }
 
   async createSessionCheckout(
@@ -16,7 +16,7 @@ export class PaymentService {
   ): Promise<{ paymentUrl: string }> {
     const amount = children * 999;
     try {
-      const session = await this.stripe.checkout.sessions.create({
+      /*const session = await this.stripe.checkout.sessions.create({
         mode: 'payment',
         payment_method_types: ['card'],
         line_items: [
@@ -31,9 +31,9 @@ export class PaymentService {
         ],
         success_url: 'http://localhost:3000/success',
         cancel_url: 'http://localhost:3000/cancel',
-      });
+      });*/
 
-      return { paymentUrl: session.url };
+      return { paymentUrl: 'test' };
     } catch (error) {
       console.error('Error creating session:', error);
       throw new BadRequestException('Failed to create session checkout.');
