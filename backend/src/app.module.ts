@@ -9,6 +9,9 @@ import { SchoolModule } from './school/school.module';
 import { StudentModule } from './student/student.module';
 import { PaymentModule } from './payment/payment.module';
 import { ParentModule } from './parent/parent.module';
+import { Student } from './student/entities/student.entity';
+import { ParentEntity } from './parent/entities/parent.entity';
+
 
 @Module({
   imports: [
@@ -46,6 +49,7 @@ import { ParentModule } from './parent/parent.module';
     SchoolModule,
     PaymentModule,
     ParentModule,
+    StudentModule,
   ],
   controllers: [AppController],
   providers: [AppService],
