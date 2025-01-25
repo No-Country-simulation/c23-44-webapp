@@ -9,6 +9,9 @@ import { AuthModule } from './auth/auth.module';
 // import { StudentModule } from './student/student.module';
 // import { PaymentModule } from './payment/payment.module';
 import { ParentModule } from './parent/parent.module';
+import {SchoolModule} from "./school/school.module";
+import {PaymentModule} from "./payment/payment.module";
+import {StudentModule} from "./student/student.module";
 // import { Student } from './student/entities/student.entity';
 // import { ParentEntity } from './parent/entities/parent.entity';
 
@@ -45,10 +48,10 @@ import { ParentModule } from './parent/parent.module';
       }),
       inject: [ConfigService],
     }),
-    // SchoolModule,
-    // PaymentModule,
+    SchoolModule,
+    PaymentModule,
     ParentModule,
-    // StudentModule,
+    StudentModule,
   ],
   controllers: [AppController],
   providers: [AppService],
