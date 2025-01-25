@@ -5,17 +5,16 @@ import { TeacherModule } from './teacher/teacher.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
-import { SchoolModule } from './school/school.module';
-import { StudentModule } from './student/student.module';
-import { PaymentModule } from './payment/payment.module';
+// import { SchoolModule } from './school/school.module';
+// import { StudentModule } from './student/student.module';
+// import { PaymentModule } from './payment/payment.module';
 import { ParentModule } from './parent/parent.module';
-import { Student } from './student/entities/student.entity';
-import { ParentEntity } from './parent/entities/parent.entity';
-
+// import { Student } from './student/entities/student.entity';
+// import { ParentEntity } from './parent/entities/parent.entity';
 
 @Module({
   imports: [
-    TeacherModule,
+    // TeacherModule,
     AuthModule,
 
     // ConfigModule.forRoot({ isGlobal: true }),
@@ -46,10 +45,10 @@ import { ParentEntity } from './parent/entities/parent.entity';
       }),
       inject: [ConfigService],
     }),
-    SchoolModule,
-    PaymentModule,
+    // SchoolModule,
+    // PaymentModule,
     ParentModule,
-    StudentModule,
+    // StudentModule,
   ],
   controllers: [AppController],
   providers: [AppService],
