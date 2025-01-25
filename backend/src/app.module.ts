@@ -6,6 +6,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { SchoolModule } from './school/school.module';
+import { StudentModule } from './student/student.module';
+import { PaymentModule } from './payment/payment.module';
 import { ParentModule } from './parent/parent.module';
 import { Student } from './student/entities/student.entity';
 import { ParentEntity } from './parent/entities/parent.entity';
@@ -45,6 +47,7 @@ import { StudentModule } from './student/student.module';
       inject: [ConfigService],
     }),
     SchoolModule,
+    PaymentModule,
     ParentModule,
     StudentModule,
     ParentModule,
