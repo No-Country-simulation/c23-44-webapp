@@ -1,5 +1,8 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
+import { RouterModule } from '@angular/router';
 
 
 @Component({
@@ -7,12 +10,12 @@ import { FormBuilder, ReactiveFormsModule, FormGroup, Validators } from '@angula
   standalone: true,
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
-  imports: [ReactiveFormsModule]
+  imports: [ReactiveFormsModule, CommonModule, RouterModule]
 })
 export class RegisterComponent {
   registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private authService: AuthService) {
     this.registerForm = this.fb.group({
       fullName: ['', Validators.required],
       username: ['', Validators.required],
