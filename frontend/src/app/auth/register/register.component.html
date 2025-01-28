@@ -16,7 +16,7 @@
     ></div>
   </div>
   <div class="flex md:w-1/2 justify-center py-10 items-center bg-white">
-    <form
+    <div
       [formGroup]="registerForm"
       (ngSubmit)="onSubmit()"
       class="bg-white w-3/4"
@@ -26,18 +26,19 @@
       
       <!-- Full Name -->
       <div class="form-group">
-        <label for="fullName">Full Name</label>
+        <label for="fullName">Nombre</label>
         <input
           id="fullName"
           type="text"
           formControlName="fullName"
-          placeholder="Full name"
+          placeholder="Nombre completo"
           class="input-field"
         />
         <div *ngIf="registerForm.get('fullName')?.invalid && registerForm.get('fullName')?.touched" class="error">
           Full name is required.
         </div>
       </div>
+
       <!-- Email -->
       <div class="form-group">
         <label for="email">Email Address</label>
@@ -45,17 +46,33 @@
           id="email"
           type="email"
           formControlName="email"
-          placeholder="Email Address"
+          placeholder="Email"
           class="input-field"
         />
         <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="error">
           Enter a valid email.
         </div>
       </div>
-      
+
+      <!-- Country-->
+    <form class="form-group">
+      <div>
+        <label for="country">Pais</label>
+        <input
+          id="country"
+          type="text"
+          formControlName="country"
+          placeholder="Pais"
+          class="input-field"
+        />
+        <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="error">
+          Enter a valid email.
+        </div>
+      </div>
+
       <!-- Password -->
       <div class="form-group">
-        <label for="password">Password</label>
+        <label for="password">Contraseña</label>
         <input
           id="password"
           type="password"
@@ -69,7 +86,7 @@
       </div>
       
       <!-- Submit -->
-      <button type="submit" class="btn" [disabled]="registerForm.invalid">
+      <button type="onSubmit()" class="btn" >
         Register
       </button>
     </form>

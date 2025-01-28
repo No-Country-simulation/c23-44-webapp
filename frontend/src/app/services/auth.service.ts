@@ -6,8 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root', // Se registra automáticamente como un servicio global
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3001/auth/register'; // URL base del backend
-  //private apiUrl = 'http://localhost:3001/api'; // URL base del backend/documentacion
+  //private apiUrl = 'http://localhost:3001/auth'; // URL base del backend
+  private apiUrl = 'http://localhost:3001/api'; // URL base del backend/documentacion
 
   constructor(private http: HttpClient) {}
 
