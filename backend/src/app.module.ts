@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TeacherModule } from './teacher/teacher.module';
+
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
@@ -9,12 +9,15 @@ import { AuthModule } from './auth/auth.module';
 // import { StudentModule } from './student/student.module';
 // import { PaymentModule } from './payment/payment.module';
 import { ParentModule } from './parent/parent.module';
-import {SchoolModule} from "./school/school.module";
-import {PaymentModule} from "./payment/payment.module";
-import {StudentModule} from "./student/student.module";
+import { SchoolModule } from './school/school.module';
+import { PaymentModule } from './payment/payment.module';
+import { StudentModule } from './student/student.module';
+
 // import { Student } from './student/entities/student.entity';
 // import { ParentEntity } from './parent/entities/parent.entity';
-
+import { BooksModule } from './books/books.module';
+import { TeacherModule } from './teacher/teacher.module';
+//import {path} from
 @Module({
   imports: [
     // TeacherModule,
@@ -52,6 +55,8 @@ import {StudentModule} from "./student/student.module";
     PaymentModule,
     ParentModule,
     StudentModule,
+    BooksModule,
+    TeacherModule,
   ],
   controllers: [AppController],
   providers: [AppService],
