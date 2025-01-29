@@ -1,0 +1,107 @@
+<div class="container">
+  <div class="child-profile">
+    <div class="child-profile__sidebar">
+      <div class="child-profile__user">
+        <div class="child-profile__avatar">
+          <img
+            [src]="childProfile.avatar"
+            alt="Profile picture"
+            class="child-profile__avatar-img"
+          />
+        </div>
+        <h2 class="child-profile__name">{{ childProfile.name }}</h2>
+      </div>
+
+      <div class="child-profile__info">
+        <div class="child-profile__detail">
+          <span class="child-profile__label">Edad:</span>
+          <span class="child-profile__value">{{ childProfile.age }} años</span>
+        </div>
+        <div class="child-profile__detail">
+          <span class="child-profile__label">Nivel:</span>
+          <span class="child-profile__value">{{ childProfile.level }}</span>
+        </div>
+        <div class="child-profile__detail">
+          <span class="child-profile__label">Proceso:</span>
+          <span class="child-profile__value">{{ childProfile.process }}</span>
+        </div>
+      </div>
+
+      <div class="child-profile__precision">
+        <span class="child-profile__precision-label">Presición Actual</span>
+        <div class="child-profile__precision-value">
+          {{ childProfile.currentPrecision }}%
+        </div>
+      </div>
+    </div>
+
+    <div class="child-profile__content">
+      <div class="child-profile__reading-section">
+        <h3 class="child-profile__reading-title">
+          Lectura de hoy: {{ childProfile.todayReading.title }}
+        </h3>
+        <div class="child-profile__reading-stats">
+          <div class="child-profile__stat">
+            <span class="child-profile__stat-label"
+              >Palabras: {{ childProfile.todayReading.words }}</span
+            >
+            <span class="child-profile__stat-label"
+              >Duración: {{ childProfile.todayReading.duration }} min</span
+            >
+          </div>
+          <div class="child-profile__stat">
+            <span class="child-profile__stat-label"
+              >Pronunciación errónea: {{
+              childProfile.todayReading.wrongPronunciation }}</span
+            >
+            <span class="child-profile__stat-label"
+              >Autocorrección: {{ childProfile.todayReading.selfCorrection
+              }}</span
+            >
+          </div>
+          <div class="child-profile__stat">
+            <span class="child-profile__stat-label"
+              >Omisión: {{ childProfile.todayReading.omission }}</span
+            >
+            <span class="child-profile__stat-label"
+              >Repeticiones: {{ childProfile.todayReading.repetitions }}</span
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="child-profile__reading-section">
+        <h3 class="child-profile__reading-title">
+          Lectura de la semana: {{ childProfile.weekReading.title }}
+        </h3>
+        <div class="child-profile__reading-stats">
+          <div class="child-profile__stat">
+            <span class="child-profile__stat-label"
+              >Palavras: {{ childProfile.weekReading.words }}</span
+            >
+            <span class="child-profile__stat-label"
+              >Duração: {{ childProfile.weekReading.duration }} min</span
+            >
+          </div>
+          <div class="child-profile__stat">
+            <span class="child-profile__stat-label"
+              >Pronunciação errônea: {{
+              childProfile.weekReading.wrongPronunciation }}</span
+            >
+            <span class="child-profile__stat-label"
+              >Autocorreção: {{ childProfile.weekReading.selfCorrection }}</span
+            >
+          </div>
+          <div class="child-profile__stat">
+            <span class="child-profile__stat-label"
+              >Omissão: {{ childProfile.weekReading.omission }}</span
+            >
+            <span class="child-profile__stat-label"
+              >Repetições: {{ childProfile.weekReading.repetitions }}</span
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

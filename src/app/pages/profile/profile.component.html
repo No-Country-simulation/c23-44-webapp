@@ -1,0 +1,63 @@
+<div class="profile">
+  <div class="profile__sidebar">
+    <div class="profile__user">
+      <img
+        src="assets/img/image_perfil_tutor.jpeg"
+        alt="Foto de perfil"
+        class="profile__avatar"
+      />
+      <h2 class="profile__name">{{ user.name }}</h2>
+    </div>
+
+    <div class="profile__info">
+      <div class="profile__info-item">
+        <span class="profile__info-label">Edades:</span>
+        <span class="profile__info-value">{{ user.age }}</span>
+      </div>
+      <div class="profile__info-item">
+        <span class="profile__info-label">hijos:</span>
+        <span class="profile__info-value">{{ user.children }}</span>
+      </div>
+      <div class="profile__info-item">
+        <span class="profile__info-label">Proceso:</span>
+        <span class="profile__info-value">{{ user.process }}</span>
+      </div>
+    </div>
+
+    <div class="profile__actions">
+      <button class="profile__button profile__button--progress">
+        Progresso
+      </button>
+      <button class="profile__button profile__button--config">
+        Configuración
+      </button>
+    </div>
+  </div>
+
+  <div class="profile__content">
+    <div *ngFor="let child of children" class="profile__child">
+      <div class="profile__child-header">
+        <h3 class="profile__child-name">{{ child.name }}</h3>
+        <button
+          class="profile__child-button"
+          (click)="viewChildProfile(child.id)"
+        >
+          Ver perfil
+        </button>
+      </div>
+      <div class="profile__progress">
+        <h4 class="profile__progress-title">Progreso de lectura</h4>
+        <div class="profile__chart">
+          <div
+            *ngFor="let value of child.progressData.values"
+            class="profile__chart-bar"
+            [style.height.%]="value"
+          ></div>
+        </div>
+        <span class="profile__progress-month">
+          mes {{ child.progressData.month }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

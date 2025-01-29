@@ -1,0 +1,21 @@
+<div class="reader">
+  <div class="reader__header">
+    <button class="reader__back" routerLink="/reading">←</button>
+    <h1 class="reader__titulo">{{libro.titulo}}</h1>
+  </div>
+
+  <div class="reader__contenedor">
+    <button class="reader__nav-button prev" (click)="paginaAnterior()" [disabled]="libro.paginaActual === 1">❮</button>
+
+    <div class="reader__contenido">
+      <div class="reader__pagina">
+        {{libro.contenido}}
+      </div>
+      <div class="reader__progreso">
+        <span>Página {{libro.paginaActual}} de {{libro.totalPaginas}}</span>
+      </div>
+    </div>
+
+    <button class="reader__nav-button next" (click)="paginaSiguiente()" [disabled]="libro.paginaActual === libro.totalPaginas">❯</button>
+  </div>
+</div>

@@ -1,0 +1,62 @@
+<div class="header-wrapper">
+  <div class="overlay" [class.active]="isMenuOpen" (click)="closeMenu()"></div>
+  <header class="header">
+    <div class="header__logo-container">
+      <a href="">
+        <img class="header__logo" src="assets/img/logo.png" alt="logo" />
+        <h1 class="text-3xl font-bold">Brizeth Picon</h1>
+      </a>
+    </div>
+
+    <!-- Botón hamburguesa animado -->
+    <button
+      class="hamburger-menu md:hidden"
+      [class.active]="isMenuOpen"
+      (click)="toggleMenu()"
+    >
+      <span class="hamburger-menu__line"></span>
+      <span class="hamburger-menu__line"></span>
+      <span class="hamburger-menu__line"></span>
+    </button>
+
+    <!-- Menú de navegación -->
+    <div
+      class="header__nav-container"
+      [ngClass]="{'hidden md:flex': !isMenuOpen, 'flex': isMenuOpen}"
+    >
+      <nav class="header__nav-bar">
+        <ul class="text-3xl font-bold flex flex-col md:flex-row gap-8">
+          <li>
+            <a routerLink="/levels" routerLinkActive="text-yellow-400"
+              >Niveles</a
+            >
+          </li>
+          <li>
+            <a routerLink="/reading" routerLinkActive="text-yellow-400"
+              >Lectura</a
+            >
+          </li>
+          <li>
+            <a routerLink="/activities" routerLinkActive="text-yellow-400"
+              >Actividades</a
+            >
+          </li>
+        </ul>
+      </nav>
+      <div class="header__buttons flex flex-col md:flex-row gap-4">
+        <button
+          routerLink="/register"
+          class="bg-yellow-500 hover:bg-yellow-400 text-white font-bold py-2 px-4 border-b-4 border-yellow-700 hover:border-yellow-500 rounded transition duration-300 ease-in-out transform hover:-translate-y-1"
+        >
+          Registrar
+        </button>
+        <button
+          routerLink="/auth/login"
+          class="bg-rose-400 hover:bg-rose-300 text-white font-bold py-2 px-4 border-b-4 border-rose-700 hover:border-rose-500 rounded transition duration-300 ease-in-out transform hover:-translate-y-1 flex items-center gap-2"
+        >
+          <img src="assets/img/user_logo.svg" alt="" />Entrar
+        </button>
+      </div>
+    </div>
+  </header>
+</div>

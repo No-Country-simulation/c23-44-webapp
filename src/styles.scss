@@ -1,0 +1,31 @@
+/* You can add global styles to this file, and also import other style files */
+@use 'variables' as *;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+router-outlet + * {
+  flex: 1;
+}
+
+// Prevenir parpadeo
+.header-wrapper,
+.hero,
+.home-section {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}

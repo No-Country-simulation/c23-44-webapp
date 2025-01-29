@@ -1,0 +1,314 @@
+.lecturas {
+  padding: 2rem;
+  background-color: #fff5f5;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  &__buscador {
+    text-align: center;
+    margin-bottom: 2rem;
+
+    &-container {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      max-width: 300px;
+      width: 100%;
+    }
+
+    input {
+      padding: 0.5rem 2.5rem 0.5rem 1rem;
+      border-radius: 20px;
+      border: 1px solid #ccc;
+      width: 100%;
+      background-repeat: no-repeat;
+      background-position: 95% center;
+      transition: all 0.3s ease;
+
+      &:focus {
+        outline: none;
+        border-color: #a5d8d8;
+        box-shadow: 0 0 0 2px rgba(165, 216, 216, 0.2);
+      }
+    }
+
+    &-btn {
+      position: absolute;
+      right: 8px;
+      background: none;
+      border: none;
+      color: #666;
+      cursor: pointer;
+      padding: 0.5rem;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: #333;
+      }
+    }
+  }
+
+  &__carrusel {
+    margin: 0 auto 3rem;
+    position: relative;
+    max-width: 1000px;
+    width: 90%;
+    height: auto;
+  }
+
+  &__seccion {
+    margin-bottom: 3rem;
+    padding: 0 1rem;
+  }
+
+  &__titulo {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+  }
+
+  &__contenedor {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  &__nav-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 1rem 0.8rem;
+    cursor: pointer;
+    z-index: 2;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+
+    &.prev {
+      left: -20px;
+    }
+
+    &.next {
+      right: -20px;
+    }
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.7);
+    }
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+
+  &__grid {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(8, minmax(150px, 180px));
+    max-width: 1000px;
+    margin: 0 auto;
+    overflow-x: auto;
+    padding: 1rem;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .libro {
+      animation: fadeIn 0.3s ease-in-out;
+    }
+  }
+
+  &__no-resultados {
+    text-align: center;
+    color: #666;
+    padding: 2rem;
+    font-style: italic;
+  }
+}
+
+.libro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 200px;
+  margin: 0 auto;
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+
+  &.fade-enter {
+    animation: fadeIn 0.3s ease-in-out forwards;
+  }
+
+  &.fade-exit {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  &__portada {
+    width: 120px;
+    height: 180px;
+    margin-bottom: 1rem;
+    position: relative;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      right: 0;
+      height: 15px;
+      background: #e0f7f7;
+      z-index: -1;
+      border-radius: 0 0 8px 8px;
+    }
+  }
+
+  &__titulo {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: #333;
+  }
+
+  &__boton {
+    background-color: #e0f7f7;
+    border: none;
+    padding: 0.5rem 2rem;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: darken(#e0f7f7, 5%);
+    }
+  }
+}
+
+.carousel-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  border-radius: 10px;
+  padding-top: 56.25%;
+  background: #f0f0f0;
+}
+
+.carousel-slides {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.carousel-image {
+  position: relative;
+  min-width: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.carousel-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  z-index: 2;
+  border-radius: 4px;
+
+  &.prev {
+    left: 1rem;
+  }
+
+  &.next {
+    right: 1rem;
+  }
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.7);
+  }
+}
+
+@media (max-width: 768px) {
+  .lecturas__carrusel {
+    width: 95%;
+  }
+
+  .carousel-button {
+    padding: 0.3rem 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  .lecturas__grid {
+    grid-template-columns: repeat(8, minmax(150px, 180px));
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+
+    .libro {
+      scroll-snap-align: start;
+    }
+  }
+}
+
+@media (min-width: 576px) {
+  .lecturas__grid {
+    grid-template-columns: repeat(4, minmax(150px, 180px));
+  }
+}
+
+@media (min-width: 768px) {
+  .lecturas__grid {
+    grid-template-columns: repeat(6, minmax(150px, 180px));
+  }
+}
+
+@media (min-width: 992px) {
+  .lecturas__grid {
+    grid-template-columns: repeat(8, minmax(150px, 180px));
+  }
+}
+
+@media (min-width: 1024px) {
+  .carousel-container {
+    padding-top: 500px;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
