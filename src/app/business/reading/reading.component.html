@@ -1,0 +1,79 @@
+<div class="lecturas">
+
+  <!-- Carrusel -->
+  <div class="lecturas__carrusel">
+    <div class="carousel-container">
+      <button class="carousel-button prev" (click)="prevSlide()">❮</button>
+      <button class="carousel-button next" (click)="nextSlide()">❯</button>
+
+      <div class="carousel-slides" [style.transform]="'translateX(-' + (currentSlide * 100) + '%)'">
+        <img *ngFor="let slide of slides"
+        [src]="slide"
+        alt="Imagen de lectura"
+        class="carousel-image">
+      </div>
+
+      <div class="lecturas__carrusel-dots">
+        <span *ngFor="let slide of slides; let i = index"
+        class="dot"
+        [class.active]="i === currentSlide"
+        (click)="setSlide(i)">
+      </span>
+    </div>
+  </div>
+</div>
+<!-- Buscador -->
+<div class="lecturas__buscador">
+  <div class="lecturas__buscador-container">
+    <input type="text"
+           placeholder="Título/autor"
+           (input)="buscarLibro($event)"
+           #busquedaInput>
+    <button class="lecturas__buscador-btn" (click)="buscarLibro({target: busquedaInput})">
+      <i class="fas fa-search"></i>
+    </button>
+  </div>
+</div>
+
+<!-- Libros Destacados -->
+  <section class="lecturas__seccion">
+    <h2 class="lecturas__titulo">Libros en destaque</h2>
+    <div class="lecturas__contenedor">
+      <button class="lecturas__nav-button prev" (click)="scrollLibros('destacados', 'prev')">❮</button>
+      <div class="lecturas__grid lecturas__grid--destacados" *ngIf="librosDestacados.length > 0; else noDestacados">
+        <div class="libro" *ngFor="let libro of librosDestacados">
+          <div class="libro__portada">
+            <img [src]="libro.imagen" [alt]="libro.titulo">
+          </div>
+          <h3 class="libro__titulo">{{libro.titulo}}</h3>
+          <button class="libro__boton" [routerLink]="['/reading', libro.titulo]">Leer</button>
+        </div>
+      </div>
+      <button class="lecturas__nav-button next" (click)="scrollLibros('destacados', 'next')">❯</button>
+    </div>
+    <ng-template #noDestacados>
+      <p class="lecturas__no-resultados">No se encontraron libros destacados</p>
+    </ng-template>
+  </section>
+
+  <!-- Recomendados Populares -->
+  <section class="lecturas__seccion">
+    <h2 class="lecturas__titulo">Recomendados Populares</h2>
+    <div class="lecturas__contenedor">
+      <button class="lecturas__nav-button prev" (click)="scrollLibros('populares', 'prev')">❮</button>
+      <div class="lecturas__grid lecturas__grid--populares" *ngIf="librosPopulares.length > 0; else noPopulares">
+        <div class="libro" *ngFor="let libro of librosPopulares">
+          <div class="libro__portada">
+            <img src="assets/img/libro.png" [alt]="libro.titulo">
+          </div>
+          <h3 class="libro__titulo">{{libro.titulo}}</h3>
+          <button class="libro__boton" [routerLink]="['/reading', libro.titulo]">Leer</button>
+        </div>
+      </div>
+      <button class="lecturas__nav-button next" (click)="scrollLibros('populares', 'next')">❯</button>
+    </div>
+    <ng-template #noPopulares>
+      <p class="lecturas__no-resultados">No se encontraron libros populares</p>
+    </ng-template>
+  </section>
+</div>
