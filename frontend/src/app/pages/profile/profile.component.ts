@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
+
 @Component({
   selector: 'app-profile',
   standalone: true,
@@ -14,14 +15,12 @@ export class ProfileComponent implements OnInit{
 
   constructor(private authService: AuthService) {}
 
-  ngOnInit(): void {
-    this.user = this.authService.getProfile();
-  }
+  
 
 
 
   user = {
-    name: 'Larissa',
+    name: '',
     age: '32 años',
     children: 2,
     process: 'Rapidez y Puntuación',
@@ -51,4 +50,14 @@ export class ProfileComponent implements OnInit{
   //viewChildProfile(childId: number) {
     //this.router.navigate(['/child-profile', childId]);
   //}
+  ngOnInit(): void {
+    //this.user = this.authService.getProfile();
+    const profile = this.authService.getProfile(); // Obtener datos del perfil
+
+    if (profile && profile.fullName) {
+      this.user.name = profile.fullName; // Asignar el fullName al objeto user
+    } else {
+      console.error('No se encontró un fullName en el perfil.');
+  }
+  }
 }
