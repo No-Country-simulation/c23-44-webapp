@@ -9,7 +9,11 @@ import {
 } from '@nestjs/common';
 
 async function bootstrap() {
+<<<<<<< HEAD
   const app = await NestFactory.create(AppModule, {cors: true});
+=======
+  const app = await NestFactory.create(AppModule, { cors: true });
+>>>>>>> 4f043adfe4a6929508e0e99dcc86bba1d315eb16
   const config = new DocumentBuilder()
     .setTitle('Plataforma Educativa')
     .setDescription('The Plataforma Educativa API description')
@@ -18,7 +22,6 @@ async function bootstrap() {
     .build();
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, documentFactory);
-  app.use(morgan('dev'));
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true, // evita campos extras en el Payload al crear

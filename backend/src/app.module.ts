@@ -1,16 +1,26 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TeacherModule } from './teacher/teacher.module';
+
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
-import { SchoolModule } from './school/school.module';
+// import { SchoolModule } from './school/school.module';
+// import { StudentModule } from './student/student.module';
+// import { PaymentModule } from './payment/payment.module';
 import { ParentModule } from './parent/parent.module';
+import { SchoolModule } from './school/school.module';
+import { PaymentModule } from './payment/payment.module';
+import { StudentModule } from './student/student.module';
 
+// import { Student } from './student/entities/student.entity';
+// import { ParentEntity } from './parent/entities/parent.entity';
+import { BooksModule } from './books/books.module';
+import { TeacherModule } from './teacher/teacher.module';
+//import {path} from
 @Module({
   imports: [
-    TeacherModule,
+    // TeacherModule,
     AuthModule,
 
     // ConfigModule.forRoot({ isGlobal: true }),
@@ -36,13 +46,17 @@ import { ParentModule } from './parent/parent.module';
         type: 'postgres',
         url: configService.get('DATABASE_URL'),
         autoLoadEntities: true,
-        synchronize: true, // set to false in production
+        synchronize: false, // set to false in production
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
       }),
       inject: [ConfigService],
     }),
     SchoolModule,
+    PaymentModule,
     ParentModule,
+    StudentModule,
+    BooksModule,
+    TeacherModule,
   ],
   controllers: [AppController],
   providers: [AppService],

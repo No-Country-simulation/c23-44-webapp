@@ -8,13 +8,13 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 # Install app dependencies
-RUN npm install
+RUN npm ci
 
 # Bundle app source
 COPY . .
 
 # Copy the .env and .env.development files
-COPY .env ./
+#COPY .env ./
 
 # Creates a "dist" folder with the production build
 RUN npm run build
