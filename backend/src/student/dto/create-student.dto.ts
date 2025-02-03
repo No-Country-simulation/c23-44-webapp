@@ -19,4 +19,7 @@ export class CreateStudentDto {
 
   @IsBoolean()
   isActive: boolean;
+
+  @IsString()
+  image:string;
 }

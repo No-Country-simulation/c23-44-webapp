@@ -5,10 +5,12 @@ import { StudentService } from './student.service';
 import { StudentController } from './student.controller';
 import { Repository } from 'typeorm';
 import { User } from 'src/auth/entities/user.entity';
+import { CloudinaryConfig } from 'src/configCloudinary/cloudinary';
+import { CloudinaryService } from 'src/files/cloudinary.service';
 
 @Module({
   controllers: [StudentController],
-  providers: [StudentService, Repository],
+  providers: [StudentService, Repository,CloudinaryConfig,CloudinaryService],
   imports: [TypeOrmModule.forFeature([Student, User])],
 })
 export class StudentModule {}

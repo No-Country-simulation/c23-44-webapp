@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TeacherEntity } from './entities/teacher.entity';
 import { Repository } from 'typeorm';
@@ -45,4 +45,16 @@ export class TeacherService {
   async delete(id: string): Promise<void> {
     await this.teacherRepository.delete(id);
   }
+
+   async updateImagen(id:string, image:string){
+      const teacherSearhed = await this.teacherRepository.findOne({
+        where: { id },
+      });
+      console.log(teacherSearhed);
+      if (!teacherSearhed) throw new NotFoundException('teacher not found');
+      teacherSearhed.image = image;
+      const uploadTeacher = await this.teacherRepository.update(id,teacherSearhed);
+      return uploadTeacher;
+  
+    }
 }

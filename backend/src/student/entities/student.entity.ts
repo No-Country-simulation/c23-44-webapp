@@ -3,12 +3,15 @@ import { UserBaseEntity } from 'src/common/entity/user-base.entity';
 // import { TeacherEntity } from 'src/teacher/entities/teacher.entity';
 import {
   BeforeInsert,
+  Column,
   Entity,
   // OneToOne
 } from 'typeorm';
 
 @Entity('student')
 export class Student extends UserBaseEntity {
+  @Column()
+  image:string;
   // @OneToOne(() => ParentEntity, (parent) => parent.student)
   // parent: ParentEntity;
 

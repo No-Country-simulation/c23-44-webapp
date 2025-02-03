@@ -28,7 +28,7 @@ async function bootstrap() {
       },
     }),
   );
-
+  app.use(morgan('dev'));
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
 
   await app.listen(process.env.PORT ?? 3000);
