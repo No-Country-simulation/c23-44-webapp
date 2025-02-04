@@ -55,6 +55,18 @@ export class ParentService {
     return this.userRepository.save(user);
   }
 
+  async updateImagen(id:string, image:string){
+    const parentSearhed = await this.parentRepository.findOne({
+      where: { id },
+    });
+    console.log(parentSearhed);
+    if (!parentSearhed) throw new NotFoundException('parent not found');
+    parentSearhed.image = image;
+    const uploadParent = await this.parentRepository.update(id,parentSearhed);
+    return uploadParent;
+
+  }
+
   // async addChild(parentId: string, studentId: string): Promise<Parent> {
   //   const parent = await this.findOne(parentId);
   //   const student = await this.studentRepository.findOne({ where: { id: studentId } });

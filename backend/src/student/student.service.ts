@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -12,7 +12,7 @@ export class StudentService {
     private readonly studentsRepository: Repository<Student>,
   ) {}
   async create(createStudentDto: CreateStudentDto) {
-    console.log(createStudentDto);
+    
     return await this.studentsRepository.save(createStudentDto);
   }
 
@@ -32,5 +32,16 @@ export class StudentService {
 
   async remove(id: string) {
     return await this.studentsRepository.softDelete(id);
+  }
+
+  async updateImagen(id:string, image:string){
+      const studentSearhed = await this.studentsRepository.findOne({
+            where: { id },
+          });
+          console.log(studentSearhed);
+          if (!studentSearhed) throw new NotFoundException('parent not found');
+          studentSearhed.image = image;
+          const uploadstudent = await this.studentsRepository.update(id,studentSearhed);
+          return uploadstudent;
   }
 }
