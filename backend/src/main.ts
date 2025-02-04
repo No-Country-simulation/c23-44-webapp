@@ -9,11 +9,7 @@ import {
 } from '@nestjs/common';
 
 async function bootstrap() {
-<<<<<<< HEAD
   const app = await NestFactory.create(AppModule, {cors: true});
-=======
-  const app = await NestFactory.create(AppModule, { cors: true });
->>>>>>> 4f043adfe4a6929508e0e99dcc86bba1d315eb16
   const config = new DocumentBuilder()
     .setTitle('Plataforma Educativa')
     .setDescription('The Plataforma Educativa API description')

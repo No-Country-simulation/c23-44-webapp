@@ -1,22 +1,19 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
 })
 export class ProfileComponent implements OnInit{
 
-  constructor(private authService: AuthService) {}
-
-  
-
+  constructor(private authService: AuthService, private router: Router) {}
 
 
   user = {
@@ -51,13 +48,16 @@ export class ProfileComponent implements OnInit{
     //this.router.navigate(['/child-profile', childId]);
   //}
   ngOnInit(): void {
-    //this.user = this.authService.getProfile();
-    const profile = this.authService.getProfile(); // Obtener datos del perfil
+    this.user = this.authService.getProfile();
+    const nprofile = this.authService.getProfile(); // Obtener datos del perfil
 
-    if (profile && profile.fullName) {
-      this.user.name = profile.fullName; // Asignar el fullName al objeto user
+    if (nprofile && nprofile.fullName) {
+      this.user.name = nprofile.fullName; // Asignar el fullName al objeto user
     } else {
       console.error('No se encontró un fullName en el perfil.');
   }
+  }
+  navigateToCreateStudent(): void {
+    this.router.navigate(['/createStudent']);
   }
 }

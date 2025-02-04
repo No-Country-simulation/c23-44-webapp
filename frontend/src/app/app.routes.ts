@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { LayoutComponent } from './shared/components/layout/layout.component';
+import { StudentFormComponent } from './crud/student/student-form/student-form.component';
 
 export const routes: Routes = [
   {
@@ -42,6 +43,15 @@ export const routes: Routes = [
             (m) => m.ProfileComponent
           ),
       },
+      //{ path: 'student', component: StudentListComponent },
+  { 
+    path: 'createStudent',
+    loadComponent: () => 
+      import('./crud/student/student-form/student-form.component').then(
+        (m) => m.StudentFormComponent
+      ),
+  },
+  { path: 'student/edit/:id', component: StudentFormComponent },
       {
         path: 'select-child',
         loadComponent: () =>

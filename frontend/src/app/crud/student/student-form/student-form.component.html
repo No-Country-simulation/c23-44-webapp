@@ -1,0 +1,81 @@
+<!-- student-form.component.html -->
+<form [formGroup]="studentForm" (ngSubmit)="onSubmit()">
+  <!-- Campo Nombre Completo -->
+  <div class="form-group">
+    <label>Nombre Completo:</label>
+    <input type="text" formControlName="fullName">
+    <div *ngIf="studentForm.get('fullName')?.invalid && studentForm.get('fullName')?.touched">
+      <small class="text-danger" *ngIf="studentForm.get('fullName')?.errors?.['required']">
+        El nombre es requerido.
+      </small>
+      <small class="text-danger" *ngIf="studentForm.get('fullName')?.errors?.['minlength']">
+        El nombre debe tener al menos 3 caracteres.
+      </small>
+    </div>
+  </div>
+
+  <!-- Campo Email -->
+  <div class="form-group">
+    <label>Email:</label>
+    <input type="email" formControlName="email">
+    <div *ngIf="studentForm.get('email')?.invalid && studentForm.get('email')?.touched">
+      <small class="text-danger" *ngIf="studentForm.get('email')?.errors?.['required']">
+        El email es requerido.
+      </small>
+      <small class="text-danger" *ngIf="studentForm.get('email')?.errors?.['email']">
+        Ingresa un email válido.
+      </small>
+    </div>
+  </div>
+
+  <!-- Campo Contraseña -->
+  <div class="form-group">
+    <label>Contraseña:</label>
+    <input type="password" formControlName="password">
+    <div *ngIf="studentForm.get('password')?.invalid && studentForm.get('password')?.touched">
+      <small class="text-danger" *ngIf="studentForm.get('password')?.errors?.['required']">
+        La contraseña es requerida.
+      </small>
+      <small class="text-danger" *ngIf="studentForm.get('password')?.errors?.['minlength']">
+        La contraseña debe tener al menos 6 caracteres.
+      </small>
+    </div>
+  </div>
+
+  <!-- Campo Rol -->
+  <div class="form-group">
+    <label>Rol:</label>
+    <select formControlName="role">
+      <option value="student">Estudiante</option>
+      <option value="parent">Padre/Tutor</option>
+    </select>
+    <div *ngIf="studentForm.get('role')?.invalid && studentForm.get('role')?.touched">
+      <small class="text-danger" *ngIf="studentForm.get('role')?.errors?.['required']">
+        Selecciona un rol.
+      </small>
+    </div>
+  </div>
+
+  <!-- Campo País -->
+  <div class="form-group">
+    <label>País:</label>
+    <input type="text" formControlName="country">
+    <div *ngIf="studentForm.get('country')?.invalid && studentForm.get('country')?.touched">
+      <small class="text-danger" *ngIf="studentForm.get('country')?.errors?.['required']">
+        El país es requerido.
+      </small>
+    </div>
+  </div>
+
+  <!-- Campo Estado Activo -->
+  <div class="form-check">
+    <label>
+      <input type="checkbox" formControlName="isActive"> Usuario Activo
+    </label>
+  </div>
+
+  <!-- Botón de submit -->
+  <button type="submit" [disabled]="studentForm.invalid">
+    {{ isEdit ? 'Actualizar' : 'Crear' }}
+  </button>
+</form>
