@@ -6,8 +6,7 @@ export class CreateBookDto {
 
   @IsString()
   author: string;
-  
- 
+
   @IsString()
   description: string;
 
@@ -22,4 +21,7 @@ export class CreateBookDto {
 
   @IsString()
   category: string;
+
+  @IsString() 
+  image:string;
 }

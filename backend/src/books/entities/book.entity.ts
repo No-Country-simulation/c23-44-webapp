@@ -25,4 +25,7 @@ export class Book {
 
   @Column()
   category: string;
+
+  @Column()
+  image: string;
 }
