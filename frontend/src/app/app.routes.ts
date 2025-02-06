@@ -3,6 +3,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { LayoutComponent } from './shared/components/layout/layout.component';
 import { StudentFormComponent } from './crud/student/student-form/student-form.component';
+import { AuthGuard } from './auth.guard';
 
 export const routes: Routes = [
   {
@@ -37,19 +38,21 @@ export const routes: Routes = [
           ),
       },
       {
-        path: 'profile',
+        path: 'profile/:Id',
         loadComponent: () =>
           import('./pages/profile/profile.component').then(
             (m) => m.ProfileComponent
           ),
+          canActivate: [AuthGuard], // Proteger la ruta
       },
-      //{ path: 'student', component: StudentListComponent },
+    
   { 
     path: 'createStudent',
     loadComponent: () => 
       import('./crud/student/student-form/student-form.component').then(
         (m) => m.StudentFormComponent
       ),
+      canActivate: [AuthGuard], // Proteger la ruta
   },
   { path: 'student/edit/:id', component: StudentFormComponent },
       {
@@ -65,6 +68,7 @@ export const routes: Routes = [
           import('./pages/child-profile/child-profile.component').then(
             (m) => m.ChildProfileComponent
           ),
+          canActivate: [AuthGuard], // Proteger la ruta
       },
       {
         path: 'settings',

@@ -1,8 +1,116 @@
-<div class="login-container">
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <h2>Login</h2>
+<div class="login-container class">
+  <!-- Panel izquierdo con imagen de bienvenida -->
+  <div class="left-panel">
+    <img src="assets/img/Login.png " alt="Bienvenida" class="welcome-image" />
+    <h1>Bienvenido al <span class="highlight">Concondrijo</span></h1>
+  </div>
+
+  <!-- Panel derecho con el formulario de inicio de sesión -->
+  <div class="right-panel">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <!-- Campo de Email -->
+      <label for="email">Usuario</label>
+      <input
+        id="email"
+        type="email"
+        formControlName="email"
+        placeholder="@usuario"
+      />
+      <div
+        class="error"
+        *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
+      >
+        <small *ngIf="loginForm.get('email')?.errors?.['required']"
+          >El email es requerido.</small
+        >
+        <small *ngIf="loginForm.get('email')?.errors?.['email']"
+          >El email no es válido.</small
+        >
+      </div>
+
+      <!-- Campo de Password -->
+      <label for="password">Contraseña</label>
+      <input
+        id="password"
+        type="password"
+        formControlName="password"
+        placeholder="********"
+      />
+      <div
+        class="error"
+        *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+      >
+        <small *ngIf="loginForm.get('password')?.errors?.['required']"
+          >La contraseña es requerida.</small
+        >
+        <small *ngIf="loginForm.get('password')?.errors?.['minlength']"
+          >La contraseña debe tener al menos 6 caracteres.</small
+        >
+      </div>
+
+      <!-- Botón para Enviar -->
+      <button type="submit" [disabled]="loginForm.invalid">Entrar</button>
+    </form>
+
+    <!-- Botones de inicio de sesión con redes sociales -->
+    <div class="social-login">
+      <button class="facebook-btn">
+        <span class="icon">F</span> Entrar com Facebook
+      </button>
+      <button class="google-btn">
+        <span class="icon">G</span> Entrar com Google
+      </button>
+    </div>
+
+    <!-- Enlaces adicionales -->
+    <div class="links">
+      <a href="#">¿Olvidaste tu contraseña?</a>
+      <a href="#">Regístrate</a>
+    </div>
+  </div>
+</div>
+
+<!--<div class="login-container">
+  <div class="left-panel">
+    <img src="assets/image.png" alt="Bienvenida" class="welcome-image" />
+    <h1>Bienvenido al <span class="highlight">Concondrijo</span></h1>
+  </div>
+  
+  <div class="right-panel">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <label for="email">Usuario</label>
+      <input id="email" type="text" formControlName="email" placeholder="@usuario" />
+      <div class="error" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+        Ingresa un correo válido.
+      </div>
+      
+      <label for="password">Senha</label>
+      <input id="password" type="password" formControlName="password" placeholder="********" />
+      <div class="error" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+        La contraseña debe tener al menos 6 caracteres.
+      </div>
+      
+      <button type="submit" [disabled]="loginForm.invalid">Entrar</button>
+    </form>
     
-    <!-- Campo de Email -->
+    <div class="social-login">
+      <button class="facebook-btn"> <span class="icon">F</span> Entrar com Facebook</button>
+      <button class="google-btn"> <span class="icon">G</span> Entrar com Google</button>
+    </div>
+    
+    <div class="links">
+      <a href="#">Esqueceu a senha?</a>
+      <a href="#">Cadastrar-se</a>
+    </div>
+  </div>
+</div>-->
+
+
+<!--<div class="login-container">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <h2>Login</h2>-->
+    
+    <!-- Campo de Email 
     <div>
       <label for="email">Email:</label>
       <input id="email" type="email" formControlName="email" />
@@ -12,7 +120,7 @@
       </div>
     </div>
 
-    <!-- Campo de Password -->
+     Campo de Password 
     <div>
       <label for="password">Password:</label>
       <input id="password" type="password" formControlName="password" />
@@ -24,7 +132,7 @@
       </div>
     </div>
 
-    <!-- Botón para Enviar -->
+     Botón para Enviar 
     <button type="submit" [disabled]="loginForm.invalid">Login</button>
   </form>
-</div>
+</div>-->

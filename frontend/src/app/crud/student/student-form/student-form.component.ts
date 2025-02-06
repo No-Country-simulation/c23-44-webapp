@@ -16,6 +16,7 @@ export class StudentFormComponent implements OnInit {
   studentForm: FormGroup;
   isEdit = false;
   studentId: string | null = null;
+  selectedFile: File | null = null; // Variable para almacenar la imagen seleccionada
 
   constructor(
     private fb: FormBuilder,
@@ -29,7 +30,8 @@ export class StudentFormComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(6)]], // Nuevo campo
       role: ['student', [Validators.required]], // Valor por defecto
       country: ['', [Validators.required]],
-      isActive: [true] // Valor por defecto
+      isActive: [true], // Valor por defecto
+      image: [''] // Campo para la imagen (opcional)
     });
     }
     //this.studentForm = this.fb.group({
@@ -52,39 +54,64 @@ export class StudentFormComponent implements OnInit {
     }
   }
 
-  onSubmit() {
-    console.log('Valores del formulario:', this.studentForm.value);
-    console.log('Errores del formulario:', this.studentForm.errors);
-    console.log('Estado del formulario:', this.studentForm.status);
+  // Método para manejar la selección de archivos
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.selectedFile = file;
 
-    if (this.studentForm.valid) {
-      const studentData = this.studentForm.value;
-      console.log('Datos enviados al servidor:', studentData);
-      const operation = this.isEdit && this.studentId ?
-        this.studentService.updateStudent(this.studentId, studentData) :
-        this.studentService.createStudent(studentData);
-
-      operation.subscribe({
-        next: () => {
-          console.log('Estudiante guardado correctamente');
-          this.router.navigate(['/profile']);
-        },
-        error: (error) => {
-          console.error('Error al guardar el estudiante:', error);
-          alert('Ocurrió un error al guardar el estudiante. Por favor, inténtalo de nuevo.');
-        }
-      });
-    } else {
-      console.warn('El formulario no es válido');
-      this.markFormGroupTouched(this.studentForm);
+      // Opcional: Mostrar una vista previa de la imagen
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        // Aquí puedes mostrar la vista previa en el HTML si lo deseas
+        console.log('Vista previa de la imagen:', e.target.result);
+      };
+      reader.readAsDataURL(file);
     }
   }
 
-  markFormGroupTouched(formGroup: FormGroup) {
-    Object.values(formGroup.controls).forEach(control => {
-      control.markAsTouched();
-      if (control instanceof FormGroup) {
-        this.markFormGroupTouched(control);
+  onSubmit() {
+    if (this.studentForm.valid) {
+      const studentData = this.studentForm.value;
+      this.saveStudent(studentData);
+      // if (this.selectedFile) {
+      //   // Subir la imagen primero
+      //   this.studentService.uploadImage(this.selectedFile).subscribe({
+      //     next: (response) => {
+      //       // Agregar la URL de la imagen al JSON del estudiante
+      //       studentData.image = response.imageUrl;
+  
+      //       // Llamar al servicio para crear o actualizar
+      //       this.saveStudent(studentData);
+      //     },
+      //     error: (error) => {
+      //       console.error('Error al subir la imagen:', error);
+      //       alert('Ocurrió un error al subir la imagen. Por favor, inténtalo de nuevo.');
+      //     }
+      //   });
+      // } else {
+      //   // Si no hay imagen, enviar el JSON directamente
+      //   this.saveStudent(studentData);
+      // }
+    } else {
+      console.warn('El formulario no es válido');
+    }
+  }
+  
+  // Método para guardar el estudiante
+  saveStudent(studentData: any) {
+    const operation = this.isEdit && this.studentId ?
+      this.studentService.updateStudent(this.studentId, studentData) :
+      this.studentService.createStudent(studentData);
+  
+    operation.subscribe({
+      next: () => {
+        console.log('Estudiante guardado correctamente');
+        this.router.navigate(['/child-profile/id']);
+      },
+      error: (error) => {
+        console.error('Error al guardar el estudiante:', error);
+        alert('Ocurrió un error al guardar el estudiante. Por favor, inténtalo de nuevo.');
       }
     });
   }

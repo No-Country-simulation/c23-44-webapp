@@ -4,6 +4,7 @@ import { UpdateBookDto } from './dto/update-book.dto';
 import { Book } from './entities/book.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { ImageBook } from './entities/imageBook.entity';
 
 
 
@@ -11,7 +12,9 @@ import { Repository } from 'typeorm';
 export class BooksService {
   constructor(
     @InjectRepository(Book)
-    private readonly bookRepository: Repository<Book>,    
+    private readonly bookRepository: Repository<Book>,
+    @InjectRepository(ImageBook)
+    private readonly imagebookRepository: Repository<ImageBook>,    
   ) {}
   async create(createBookDto: CreateBookDto) {
     console.log(createBookDto);
@@ -22,9 +25,10 @@ export class BooksService {
     return await this.bookRepository.find();
   }
 
-  async findOne(id: string) {
+  async findOne(bookId: string) {
     return await this.bookRepository.findOne({
-      where: { id },
+      where: { id: bookId }, // O cualquier otra condición
+      relations: ['images'], // ¡Esta línea es crucial!
     });
   }
 
@@ -32,16 +36,16 @@ export class BooksService {
     return await this.bookRepository.update(id, updateBookDto);
   }
 
-  async updateImagen(id:string,image:string){
-    const bookSearhed = await this.bookRepository.findOne({
-      where: { id },
-    });
-    console.log(bookSearhed);
-    if (!bookSearhed) throw new NotFoundException('book not found');
-    bookSearhed.image = image;
-    const uploadBook = await this.bookRepository.update(id,bookSearhed);
-    return uploadBook;
-  }
+    async updateImagen(bookId:string,urlsImages: any[]){ 
+      for (const urlImagefile of urlsImages) {
+        const imgBook = new ImageBook();
+        console.log(urlImagefile);
+        imgBook.image = urlImagefile;
+        imgBook.bookId = bookId;
+        console.log(imgBook);
+        await this.imagebookRepository.save(imgBook);
+      }     
+    }
 
   async remove(id: string) {
     return await this.bookRepository.softDelete(id);

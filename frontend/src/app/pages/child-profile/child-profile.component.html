@@ -1,5 +1,14 @@
+<!-- child-profile.component.html -->
 <div class="container">
-  <div class="child-profile">
+  <div *ngIf="isLoading" class="loading-spinner">
+    <p>Cargando perfil...</p>
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    <p>{{ errorMessage }}</p>
+  </div>
+
+  <div *ngIf="!isLoading && !errorMessage" class="child-profile">
     <div class="child-profile__sidebar">
       <div class="child-profile__user">
         <div class="child-profile__avatar">
@@ -16,6 +25,14 @@
         <div class="child-profile__detail">
           <span class="child-profile__label">Edad:</span>
           <span class="child-profile__value">{{ childProfile.age }} años</span>
+        </div>
+        <div class="child-profile__detail">
+          <span class="child-profile__label">Email:</span>
+          <span class="child-profile__value">{{ childProfile.email }}</span>
+        </div>
+        <div class="child-profile__detail">
+          <span class="child-profile__label">Pais:</span>
+          <span class="child-profile__value">{{ childProfile.country }}</span>
         </div>
         <div class="child-profile__detail">
           <span class="child-profile__label">Nivel:</span>
@@ -77,27 +94,27 @@
         <div class="child-profile__reading-stats">
           <div class="child-profile__stat">
             <span class="child-profile__stat-label"
-              >Palavras: {{ childProfile.weekReading.words }}</span
+              >Palabras: {{ childProfile.weekReading.words }}</span
             >
             <span class="child-profile__stat-label"
-              >Duração: {{ childProfile.weekReading.duration }} min</span
+              >Duración: {{ childProfile.weekReading.duration }} min</span
             >
           </div>
           <div class="child-profile__stat">
             <span class="child-profile__stat-label"
-              >Pronunciação errônea: {{
+              >Pronunciación errónea: {{
               childProfile.weekReading.wrongPronunciation }}</span
             >
             <span class="child-profile__stat-label"
-              >Autocorreção: {{ childProfile.weekReading.selfCorrection }}</span
+              >Autocorrección: {{ childProfile.weekReading.selfCorrection }}</span
             >
           </div>
           <div class="child-profile__stat">
             <span class="child-profile__stat-label"
-              >Omissão: {{ childProfile.weekReading.omission }}</span
+              >Omisión: {{ childProfile.weekReading.omission }}</span
             >
             <span class="child-profile__stat-label"
-              >Repetições: {{ childProfile.weekReading.repetitions }}</span
+              >Repeticiones: {{ childProfile.weekReading.repetitions }}</span
             >
           </div>
         </div>

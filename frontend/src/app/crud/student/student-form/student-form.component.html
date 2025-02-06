@@ -73,6 +73,12 @@
       <input type="checkbox" formControlName="isActive"> Usuario Activo
     </label>
   </div>
+  <!-- Campo de carga de imágenes -->
+  <div class="form-group">
+    <label>Imagen de perfil:</label>
+    <input type="file" (change)="onFileSelected($event)" accept="image/*">
+    <small class="text-muted">Formatos permitidos: JPEG, PNG, GIF</small>
+  </div>
 
   <!-- Botón de submit -->
   <button type="submit" [disabled]="studentForm.invalid">

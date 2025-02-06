@@ -28,6 +28,7 @@ export class AuthController {
   @ApiResponse({ status: 201, description: 'User registered' })
   @Post('register')
   createUser(@Body() createUserDto: CreateUserDto) {
+    console.log(createUserDto);
     return this.authService.create(createUserDto);
   }
 

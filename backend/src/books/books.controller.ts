@@ -12,21 +12,23 @@ import {
   ParseFilePipe,
   FileTypeValidator,
   MaxFileSizeValidator,
+  UploadedFiles,
+  UseGuards,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { FilesInterceptor } from '@nestjs/platform-express';
 import { CloudinaryService } from 'src/files/cloudinary.service';
 
-// import { UserRoleGuard } from 'src/auth/guards/user-role/user-role.guard';
-// import { AuthGuard } from '@nestjs/passport';
-// import { RoleProtected } from 'src/auth/decorators/role-protected.decorator';
-// import { ValidRoles } from 'src/auth/interfaces';
+import { UserRoleGuard } from 'src/auth/guards/user-role/user-role.guard';
+import { AuthGuard } from '@nestjs/passport';
+import { RoleProtected } from 'src/auth/decorators/role-protected.decorator';
+import { ValidRoles } from 'src/auth/interfaces';
 
 @Controller('books')
-// @UseGuards(AuthGuard())
-//@RoleProtected(ValidRoles.ADMIN_SCHOOL)
+@UseGuards(AuthGuard())
+@RoleProtected(ValidRoles.ADMIN_SCHOOL)
 @Injectable()
 export class BooksController {
   constructor(
@@ -40,8 +42,8 @@ export class BooksController {
   }
 
   @Post('image/:id')
-  @UseInterceptors(FileInterceptor('file'))
-  async uploadFile(@Param('id') id: string,@UploadedFile(
+  @UseInterceptors(FilesInterceptor('files',5))
+  async uploadFile(@Param('id') id: string,@UploadedFiles(
     new ParseFilePipe({
       validators:[
         new FileTypeValidator({
@@ -53,10 +55,16 @@ export class BooksController {
         })
       ]
     })
-  ) file: Express.Multer.File) {
+  ) files: Express.Multer.File[]) {
+    //console.log(files);
+    const urlsImage=[];
+    for (const file of files) {
     const urlImage = await this.cloudinaryService.uploadImagen(file);
-    console.log(urlImage.secure_url);
-    return await this.booksService.updateImagen(id,urlImage.secure_url);
+    urlsImage.push(urlImage.secure_url);
+  
+    }
+    
+    return await this.booksService.updateImagen(id,urlsImage);
   }
 
   

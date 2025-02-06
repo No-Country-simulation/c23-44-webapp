@@ -42,20 +42,30 @@ export class ProfileComponent implements OnInit{
     },
   ];
 
-  //constructor(private router: Router) {}
 
-  //viewChildProfile(childId: number) {
-    //this.router.navigate(['/child-profile', childId]);
-  //}
+  viewChildProfile(childId: number) {
+    this.router.navigate(['/child-profile', childId]);
+  }
   ngOnInit(): void {
     this.user = this.authService.getProfile();
-    const nprofile = this.authService.getProfile(); // Obtener datos del perfil
+    const profile = this.authService.getProfile(); // Obtener datos del perfil
 
-    if (nprofile && nprofile.fullName) {
-      this.user.name = nprofile.fullName; // Asignar el fullName al objeto user
+    if (profile && profile.id) {
+      this.router.navigate(['/profile', profile.id]);
+    } else {
+      // Si no hay id, redirige a otra ruta o muestra un mensaje de error
+      console.error('No se encontró un ID de usuario para la redirección.');
+    }
+    if (!this.user) {
+      console.warn('No se encontró un perfil de usuario.');
+      this.router.navigate(['/login']); // Redirige si no hay sesión
+    }
+
+    if (profile && profile.fullName) {
+      this.user.name = profile.fullName; // Asignar el fullName al objeto user
     } else {
       console.error('No se encontró un fullName en el perfil.');
-  }
+    }
   }
   navigateToCreateStudent(): void {
     this.router.navigate(['/createStudent']);

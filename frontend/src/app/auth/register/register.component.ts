@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import Swal from 'sweetalert2';
 
@@ -16,8 +16,9 @@ import Swal from 'sweetalert2';
 export class RegisterComponent {
   registerForm: FormGroup;
   
+  
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.registerForm = this.fb.group({
       fullName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -37,7 +38,10 @@ export class RegisterComponent {
             text: 'Ha sido registrado correctamente',
             icon: 'success',
             confirmButtonText: 'Entendido',
+          }).then(() => {
+            this.router.navigate(['/profile/id']);
           });
+          
         },
         error: (err) => {
           console.error('Error during registration:', err);
