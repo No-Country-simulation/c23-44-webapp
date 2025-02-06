@@ -11,22 +11,28 @@ import {
   ParseFilePipe,
   FileTypeValidator,
   MaxFileSizeValidator,
+  UseGuards,
 } from '@nestjs/common';
 import { StudentService } from './student.service';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CloudinaryService } from 'src/files/cloudinary.service';
+import { GetUSer } from 'src/auth/decorators/get-user.decorator';
+import { User } from 'src/auth/entities/user.entity';
+import { ValidRoles } from 'src/auth/interfaces';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('student')
+@UseGuards(AuthGuard())
 export class StudentController {
   constructor(private readonly studentService: StudentService,
       private readonly cloudinaryService: CloudinaryService,) {}
 
   @Post()
-  async create(@Body() createStudentDto: CreateStudentDto) {
-    console.log(createStudentDto);
-    return await this.studentService.create(createStudentDto);
+  async create(@Body() createStudentDto: CreateStudentDto,  @GetUSer() user: User,) {
+   
+    return await this.studentService.create({...createStudentDto, parentId: user.id});
   }
 
   @Get()
