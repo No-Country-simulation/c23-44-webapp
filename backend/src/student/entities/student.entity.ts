@@ -1,10 +1,13 @@
 import { UserBaseEntity } from 'src/common/entity/user-base.entity';
+import { ParentEntity } from 'src/parent/entities/parent.entity';
 // import { ParentEntity } from 'src/parent/entities/parent.entity';
 // import { TeacherEntity } from 'src/teacher/entities/teacher.entity';
 import {
   BeforeInsert,
   Column,
   Entity,
+  JoinColumn,
+  ManyToOne,
   // OneToOne
 } from 'typeorm';
 
@@ -12,11 +15,11 @@ import {
 export class Student extends UserBaseEntity {
   @Column()
   image:string;
-  // @OneToOne(() => ParentEntity, (parent) => parent.student)
-  // parent: ParentEntity;
 
-  // @OneToOne(() => TeacherEntity, (teacher) => teacher.student)
-  // teacher: TeacherEntity;
+
+  @ManyToOne(() => ParentEntity, (parent) => parent.student)
+  @JoinColumn({ name: 'parentId' }) // Opcional, pero recomendado para claridad
+  parent: ParentEntity;
 
   @BeforeInsert()
   normalizeEmail() {

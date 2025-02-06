@@ -1,4 +1,4 @@
-import { IsBoolean, IsString } from 'class-validator';
+import { IsBoolean, IsOptional, IsString } from 'class-validator';
 import { ValidRoles } from 'src/auth/interfaces';
 
 export class CreateStudentDto {
@@ -22,4 +22,7 @@ export class CreateStudentDto {
 
   @IsString()
   image:string;
+
+  @IsOptional()
+  parentId?:string;
 }

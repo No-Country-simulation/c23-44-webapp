@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { ImageBook } from './imageBook.entity';
 
 @Entity('book')
 export class Book {
@@ -26,6 +27,11 @@ export class Book {
   @Column()
   category: string;
 
-  @Column()
-  image: string;
+  
+
+    // Relación Uno a Muchos con ImageBook
+    @OneToMany(() => ImageBook, (image) => image.book)
+    images: ImageBook[];
+    
+   
 }

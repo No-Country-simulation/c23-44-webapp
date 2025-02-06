@@ -21,10 +21,10 @@ export class ParentService {
   ) {}
 
   async findAll() {
-    // return await this.parentRepository.find({
-    //   relations: ['user', 'children'],
-    // });
-    return await this.parentRepository.find();
+    return await this.parentRepository.find({
+      relations: ['user', 'children'],
+    });
+    
   }
 
   async findOne(id: string) {

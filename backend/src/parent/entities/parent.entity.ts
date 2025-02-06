@@ -7,6 +7,7 @@ import {
   ManyToMany,
   OneToOne,
   JoinColumn,
+  OneToMany,
 } from 'typeorm';
 
 @Entity('parent_entities')
@@ -20,8 +21,8 @@ export class ParentEntity {
   @OneToOne(() => User, (user) => user.parent)
   @JoinColumn()
   user: User;
-  student: any;
 
-  @ManyToMany(() => Student, (student) => student.id)
-  children: Student[];
+  @OneToMany(()=> Student, (student) => student.parent)
+  student: Student[];
 }
+
