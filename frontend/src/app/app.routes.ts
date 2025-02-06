@@ -63,6 +63,13 @@ export const routes: Routes = [
             (m) => m.SettingsComponent
           ),
       },
+      {
+        path: 'pronunciation-practice',
+        loadComponent: () =>
+          import(
+            './business/pronunciation-practice/pronunciation-practice.component'
+          ).then((m) => m.ReadingPracticeComponent),
+      },
     ],
   },
   {

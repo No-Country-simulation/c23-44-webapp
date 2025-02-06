@@ -15,6 +15,7 @@ import { BooksModule } from './books/books.module';
 import { TeacherModule } from './teacher/teacher.module';
 import { FilesModule } from './files/files.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
+import { PronunciationPracticeModule } from './pronunciation-practice/pronunciation-practice.module';
 
 //import {path} from
 @Module({
@@ -44,6 +45,7 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
     TeacherModule,
     FilesModule,
     CloudinaryModule,
+    PronunciationPracticeModule,
   ],
   controllers: [AppController],
   providers: [AppService],

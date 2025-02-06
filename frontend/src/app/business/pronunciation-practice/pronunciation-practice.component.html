@@ -1,0 +1,146 @@
+<div class="max-w-2xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
+  <div class="p-6">
+    <h2 class="text-3xl font-bold mb-4 text-blue-600">¡Vamos a leer juntos!</h2>
+    <p class="mb-6 text-gray-600 text-lg">
+      {{
+        isPracticingWords
+          ? "Lee la palabra en voz alta cuando el semáforo esté en verde"
+          : "Lee toda la frase en voz alta cuando el semáforo esté en verde"
+      }}
+    </p>
+
+    <div class="mb-6">
+      <h3 class="text-xl font-semibold mb-2 text-gray-700">Libro actual:</h3>
+      <p class="p-3 bg-gray-100 rounded text-gray-800">
+        {{ currentBook?.title }}
+      </p>
+    </div>
+
+    <div class="mb-6 flex items-center justify-center space-x-4">
+      <button
+        (click)="previousWord()"
+        [disabled]="currentWordIndex === 0"
+        class="text-3xl text-blue-500 disabled:text-gray-300"
+      >
+        <span class="sr-only">Palabra anterior</span>
+        &lt;
+      </button>
+      <div class="text-4xl font-bold text-center min-w-[200px]">
+        {{ isPracticingWords ? words[currentWordIndex] : "Frase completa" }}
+      </div>
+      <button
+        (click)="nextWord()"
+        [disabled]="currentWordIndex === words.length - 1"
+        class="text-3xl text-blue-500 disabled:text-gray-300"
+      >
+        <span class="sr-only">Siguiente palabra</span>
+        &gt;
+      </button>
+    </div>
+
+    <div class="mb-6 flex justify-center">
+      <div
+        [ngClass]="{
+          'w-16 h-16 rounded-full': true,
+          'bg-red-500': trafficLight === 'red',
+          'bg-yellow-500': trafficLight === 'yellow',
+          'bg-green-500': trafficLight === 'green'
+        }"
+        role="status"
+        [attr.aria-label]="'Semáforo está ' + trafficLight"
+      ></div>
+    </div>
+
+    <div class="mb-6">
+      <h3 class="text-xl font-semibold mb-2 text-gray-700">
+        Lo que has dicho:
+      </h3>
+      <p class="p-3 bg-gray-100 rounded text-gray-800 min-h-[50px] text-lg">
+        {{ transcript }}
+      </p>
+    </div>
+
+    @if (!isPracticingWords && mispronounced.length > 0) {
+    <div class="mb-6">
+      <h3 class="text-xl font-semibold mb-2 text-gray-700">
+        Palabras para practicar más:
+      </h3>
+      <div class="flex flex-wrap gap-2">
+        @for (word of mispronounced; track word) {
+        <span
+          class="px-3 py-2 bg-yellow-100 text-yellow-800 rounded-full text-lg"
+        >
+          {{ word }}
+        </span>
+        }
+      </div>
+    </div>
+    } @if (isPracticingWords && wordScores && (wordScores | keyvalue).length >
+    0) {
+    <div class="mb-6">
+      <h3 class="text-xl font-semibold mb-2 text-gray-700">
+        Progreso de palabras:
+      </h3>
+      <div class="flex flex-wrap gap-2">
+        @for (entry of wordScores | keyvalue; track entry.key) {
+        <span
+          [ngClass]="{
+            'px-3 py-2 rounded-full text-lg': true,
+            'bg-green-100 text-green-800': entry.value,
+            'bg-red-100 text-red-800': !entry.value
+          }"
+        >
+          {{ entry.key }} {{ entry.value ? "✓" : "✗" }}
+        </span>
+        }
+      </div>
+    </div>
+    } @if (!isPracticingWords && score !== null) {
+    <div class="mb-6">
+      <h3 class="text-xl font-semibold mb-2 text-gray-700">Tu puntaje:</h3>
+      <p class="text-4xl font-bold text-green-600">
+        {{ score }} estrellas de 100 {{ score === 100 ? "🌟" : "⭐" }}
+      </p>
+      @if (score === 100) {
+      <p class="text-lg text-green-600 mt-2">
+        ¡Perfecto! Lo has leído todo correctamente.
+      </p>
+      }
+    </div>
+    } @if (error) {
+    <div class="mb-6 p-3 bg-red-100 text-red-700 rounded text-lg" role="alert">
+      {{ error }}
+    </div>
+    }
+
+    <div class="flex justify-between">
+      <button
+        (click)="isListening ? stopListening() : startListening()"
+        [disabled]="!isPracticingWords && currentWordIndex < words.length - 1"
+        [ngClass]="{
+          'flex items-center px-6 py-3 rounded-full text-xl': true,
+          'bg-red-500 hover:bg-red-600 text-white': isListening,
+          'bg-gray-300 text-gray-500 cursor-not-allowed':
+            !isPracticingWords && currentWordIndex < words.length - 1,
+          'bg-blue-500 hover:bg-blue-600 text-white':
+            !isListening &&
+            (isPracticingWords || currentWordIndex === words.length - 1)
+        }"
+      >
+        {{
+          isListening
+            ? "Parar"
+            : isPracticingWords
+            ? "Decir palabra"
+            : "Decir frase"
+        }}
+      </button>
+      <button
+        (click)="resetPractice()"
+        class="flex items-center px-6 py-3 rounded-full text-xl bg-yellow-500 hover:bg-yellow-600 text-white"
+      >
+        Reiniciar
+      </button>
+    </div>
+  </div>
+</div>
