@@ -1,4 +1,3 @@
-// login.component.ts
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -29,32 +28,43 @@ export class LoginComponent {
   }
 
   onSubmit(): void {
-    if (this.loginForm.valid) {
-      this.authService.login(this.loginForm.value).subscribe({
-        next: () => {
-          Swal.fire({
-            title: '¡Bienvenido!',
-            text: 'Has iniciado sesión con éxito.',
-            icon: 'success',
-            confirmButtonText: 'Continuar',
-          }).then(() => {
-            this.router.navigate(['/profile']);
-          });
-        },
-        error: () => {
-          Swal.fire({
-            title: 'Error',
-            text: 'Credenciales incorrectas. Inténtalo de nuevo.',
-            icon: 'error',
-            confirmButtonText: 'Entendido',
-          });
-        },
-      });
-    } else {
+    if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
+      console.warn('Correo y contraseña son obligatorios');
+      return;
     }
+
+    const { email, password } = this.loginForm.value; // ✅ Extrae valores correctamente
+
+    this.authService.login(email, password).subscribe({
+      next: () => {
+        Swal.fire({
+          title: '¡Bienvenido!',
+          text: 'Has iniciado sesión con éxito.',
+          icon: 'success',
+          confirmButtonText: 'Continuar',
+        }).then(() => {
+          const profile = this.authService.getProfile();
+          if (profile?.id) {
+            this.router.navigate(['/profile', profile.id]);
+          } else {
+            console.error('No se encontró un ID en el perfil. Redirigiendo al home.');
+            this.router.navigate(['/']);
+          }
+        });
+      },
+      error: () => {
+        Swal.fire({
+          title: 'Error',
+          text: 'Credenciales incorrectas. Inténtalo de nuevo.',
+          icon: 'error',
+          confirmButtonText: 'Entendido',
+        });
+      },
+    });
   }
 }
+
 
 
 // import { Component } from '@angular/core';
